@@ -1,0 +1,129 @@
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+//= require activeadmin_addons/all
+//= require select2
+//= require select2-bootstrap
+//@import "bootstrap-sprockets";
+//@import "bootstrap";
+
+@import "colors";
+@import "active_admin/mixins";
+//@import "active_admin/base";
+@import "active_material";
+//@import 'formadmin/formadmin';
+@import "selectize";
+@import "selectize.default";
+@import "activeadmin-ajax_filter";
+@import "chosen";
+
+// Overriding any non-variable SASS must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+//menu-button
+
+.select2-container {
+  width: 100%;
+}
+
+li.cancel a:hover a:focus {
+  color: $am-theme-text-reverse !important;
+}
+
+.action_item a  {
+  background: $am-theme-primary !important;
+  padding: 12px !important;
+  color: $am-theme-text-reverse !important;
+  font-weight: 700 !important;
+}
+
+a[data-method="delete"] {
+  color: $am-theme-text-reverse !important;
+  background: $am-theme-error !important;
+}
+
+.action_item a:hover, a:focus {
+  color: $am-theme-accent !important;
+  transition: 0.1s color !important;
+}
+
+span.empty {
+  margin-left: 10px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  min-height: 0.01%;
+}
+
+.table {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-color: grey;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+.table {
+  background-color: transparent;
+}
+
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+.table td[class*="col-"], table th[class*="col-"] {
+  position: static;
+  float: none;
+  display: table-cell;
+}
+
+.table td, th {
+  display: table-cell;
+  vertical-align: inherit;
+}
+
+.bool-value {
+  font-size: 18px;
+
+  &.true-value {
+    color: #08A510;
+  }
+
+  &.false-value {
+    color: #FF0000;
+  }
+}
+
+li.cancel a:hover,
+li.cancel a:focus {
+  color: white !important;
+}
+
+fieldset.actions {
+  text-align: right;
+}
+
+img.thumbnail {
+  width: 150px !important;
+}

@@ -1,0 +1,4 @@
+<%# add navigation links to this file %>
+<% if current_user %>
+<li><%= link_to t('log_out'), destroy_user_session_path  %></li>
+<% end %>

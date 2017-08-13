@@ -1,0 +1,123 @@
+---
+es:
+  upload_limit_size_message: El tamaño en conjunto de los archivos no puede superar
+  api:
+    not_authorized: No estás autorizado
+  document: Documento
+  about: Acerca de
+  edit_account: Editar Cuenta
+  sign_in: Ingresar
+  sign_out: Salir
+  sign_up: Registrarse
+  user_deleted: Usuario Eliminado
+  user_not_updated: No se ha podido modificar al usuario
+  user_updated: Usuario Actualizado
+  user_details: Detalles del usuario
+  recently_updated_content: Contenido recientemente actualizado
+  Item: Item
+  Type: Tipo
+  QRCode: Código QR
+  Modified_at: Modificado
+  Admin: Administrador
+  Company_Details: Detalles de la entidad
+  Companies: Entidades
+  nothing_to_see_here: Nada que ver aquí, continua tu camino
+  Home: Inicio
+  Users: Usuarios
+  Items: Items
+  Documents: Documentos
+  Attachments: Archivos
+  Attachment: Archivo
+  User_Details: Infomacion del usuario
+  Item_Details: Detalles del Item
+  Label: Etiqueta
+  Color_Reference: Color de Referencia
+  Name: Nombre
+  Location: Ubicación
+  Latitude: Latitud
+  Longitude: Longitud
+  Description: Descripción
+  Enabled: Activo
+  Categories: Categorias
+  Created_at: Creado
+  Updated_at: Actualizado
+  Download: Descargar
+  save: Guardar
+  last_20_items: Últimos 20 registros
+  Associations: Asociaciones
+  Parents: Pertenece a item(s)
+  Children: Items dependientes
+  no_file: Aún no se ha subido ningún archivo.
+  remove: Eliminar
+  Print: Imprimir
+  Roles: Roles de Usuario
+  Categories: Categorías
+  Country: Pais
+  State: Region
+  City: Ciudad
+  category_details: Detalles de Categoría
+  created_at: Fecha de Creación
+  updated_at: Fecha de Actualización
+  activerecord:
+    models:
+      company:
+        one: Entidad
+        other: Entidades
+
+    attributes:
+      user:
+        name: Nombre
+        company_id: Entidad
+        current_sign_in_at: Ultimo ingreso
+        encrypted_apssword: Password encriptado
+        company: Entidades
+        sign_in_count: Cantidad de ingresos
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
+        reset_password_sent_at: Último envío de reseteo de password
+        remember_created_at: Recuerdo de creación
+        current_sign_in_ip: IP Actual de ingreso
+        last_sign_in_ip: Última IP de ingreso
+        my_roles: Roles
+      company:
+        name: Nombre
+        enabled: Activo
+        description: Descripción
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
+      attachment:
+        path: Archivo
+        name: Archivo
+  errors:
+    messages:
+      extension_whitelist_error: Formato no permitido
+  active_admin:
+    filters:
+      predicates:
+        from: Desde
+        to: Hasta
+    dashboard: Dashboard
+    resources:
+      attachment:
+        new_model: Agregar Archivo
+        edit_model: Editar Archivo
+        save_model: Editar Archivo
+        has_many_new: Agregar Archivo
+      company:
+        name: Entidad
+        new_model: Agregar Entidad
+        edit_model: Editar Entidad
+        save_model: Editar Entidad
+        delete_model: Eliminar Entidad
+        details: Detalles de la Entidad
+        has_many_new: Añadir Entidades
+        pagination:
+          empty: No se han encontrado Entidades
+          one: 'Mostrando <b>1</b> Entidad'
+          one_page: 'Mostrando <b>un total de %{n}</b> Entidades'
+          multiple: 'Mostrando Entidades <b>%{from}&nbsp;-&nbsp;%{to}</b> de un total de <b>%{total}</b>'
+        batch_actions:
+          delete_confirmation: 'Eliminar Entidades: ¿Está seguro?'
+          succesfully_destroyed:
+            one: Se ha destruido 1 Entidad con éxito
+            other: 'Se han destruido %{count} Entidades con éxito'
