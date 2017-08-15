@@ -12,8 +12,8 @@ class Api::V1::LocationsController < ApiController
 
   def cities
     country = params[:country]
-    state = params[:state]
-    json_response CountryStateSelect.collect_cities(state, country)#.map{ |pair| Hash[*pair.reverse] }
+    region = params[:region]
+    json_response CountryStateSelect.collect_cities(region, country)#.map{ |pair| Hash[*pair.reverse] }
   end
 
 end

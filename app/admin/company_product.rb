@@ -1,13 +1,13 @@
-ActiveAdmin.register Company do
-  permit_params :name, :description, :active
+ActiveAdmin.register CompanyProduct do
+  permit_params :description, :active
 
-  menu parent: I18n.t('Companies'), priority: 1, label: I18n.t('Companies')
+  menu parent: I18n.t('Companies'), priority: 2, label: I18n.t('Company_Product')
 
-  index title: I18n.t('Companies') do
+  index title: I18n.t('Company_Products') do
     selectable_column
     #id_column
-    column I18n.t('Name') do |resource|
-      link_to resource.name, admin_company_path(resource)
+    column I18n.t('Name') do |company|
+      link_to company.description, admin_company_product_path(company)
     end
 
     column I18n.t('Description'), :description
@@ -21,11 +21,11 @@ ActiveAdmin.register Company do
     tabs do
       tab I18n.t('Company') do
         attributes_table do
-          row I18n.t('Name') do
-            resource.name
-          end
           row I18n.t('Description') do
             resource.description
+          end
+          row I18n.t('Company_Product_Type') do
+            resource.product_type_id
           end
           bool_row I18n.t('Active') do
             resource.active
@@ -38,18 +38,10 @@ ActiveAdmin.register Company do
           end
         end
       end
-      tab I18n.t('Products') do
-        table_for resource.company_products do
-          column I18n.t('Description'), :description
-          column I18n.t('created_at'), :created_at
-          column I18n.t('updated_at'), :update_at
-        end
-      end
     end
     #active_admin_comments
   end
 
-  filter :name
   filter :description
   filter :active
   filter :created_at
@@ -61,15 +53,23 @@ ActiveAdmin.register Company do
       f.action :submit, label: I18n.t('save')
       cancel_link
     end
-    f.inputs I18n.t('Company_Details') do
-      f.input :name, label: I18n.t('Name'), input_html: {autofocus: true}
+    f.inputs I18n.t('Company_Product_Details') do
       f.input :description, label: I18n.t('Description')
-      if f.object.new_record?
-        f.input :active, label: I18n.t('Active'), input_html: {checked: true}
-      else
-        f.input :active, label: I18n.t('Active')
-      end
+      f.input :active, label: I18n.t('Active'), input_html: {checked: 'checked'}
     end
   end
 
+  # controller do
+  #
+  #   # Provide access to the parent resource record: Site.
+  #   #
+  #   # Without this extra setup the parent record will not be accessible. Any
+  #   # calls to `#parent` will return the Arbre parent element and not the
+  #   # ActiveAdmin resource.
+  #   alias_method :site, :parent
+  #
+  #   # Expose the method as a helper making it available to the view
+  #   helper_method :site
+  #
+  # end
 end

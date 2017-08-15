@@ -15,7 +15,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :user_roles, dependent: :destroy
+  has_many :user_roles
   has_many :roles, through: :user_roles
 
   has_many :user_companies, dependent: :destroy
@@ -48,4 +48,12 @@ class User < ApplicationRecord
     self.my_roles.include? 'admin'
   end
 
+  def self.roles_for_select
+    Role.all.map do |role|
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.i18n.roles.#{role.name}"), role.id]
+    end.to_h
+  end
+
 end
+
+User.roles_for_select

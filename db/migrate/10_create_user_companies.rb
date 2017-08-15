@@ -9,4 +9,3 @@ class CreateUserCompanies < ActiveRecord::Migration[5.0]
     add_index :user_companies, [:user_id, :company_id], unique: true
   end
 end
-á

@@ -15,10 +15,10 @@
 //@import "bootstrap";
 
 @import "colors";
-@import "active_admin/mixins";
+//@import "active_admin/mixins";
 //@import "active_admin/base";
-@import "active_material";
-//@import 'formadmin/formadmin';
+//@import "active_material";
+@import 'formadmin/formadmin';
 @import "selectize";
 @import "selectize.default";
 @import "activeadmin-ajax_filter";
@@ -35,7 +35,7 @@
 }
 
 li.cancel a:hover a:focus {
-  color: $am-theme-text-reverse !important;
+  color: $am-theme-text !important;
 }
 
 .action_item a  {
@@ -126,4 +126,24 @@ fieldset.actions {
 
 img.thumbnail {
   width: 150px !important;
+}
+
+//.has_nested>a::after {
+//  content: "\2304";
+//}
+.nav.ui-tabs-nav.ui-tabs-nav   {
+  list-style-type: none;
+}
+
+.select2-container {
+  width: 65%;
+}
+
+.active-result, .chosen-results {
+  width: 100%;
+}
+
+.string.input > input {
+  width: 65%;
+  float: left;
 }

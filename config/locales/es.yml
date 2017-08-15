@@ -4,6 +4,7 @@ es:
   api:
     not_authorized: No estás autorizado
   document: Documento
+  document_type: Tipo de Documento
   about: Acerca de
   edit_account: Editar Cuenta
   sign_in: Ingresar
@@ -19,8 +20,14 @@ es:
   QRCode: Código QR
   Modified_at: Modificado
   Admin: Administrador
+  Client_Details: Detalles del cliente
   Company_Details: Detalles de la entidad
+  Company_Product_Details: Detalles del Producto
+  People: Personas
+  Clients: Clientes
   Companies: Entidades
+  Company_Product: Productos
+  Company_Products: Productos
   nothing_to_see_here: Nada que ver aquí, continua tu camino
   Home: Inicio
   Users: Usuarios
@@ -33,11 +40,17 @@ es:
   Label: Etiqueta
   Color_Reference: Color de Referencia
   Name: Nombre
+  First_Name: Nombres
+  Last_Name: Apellidos
+  Document: Documento
+  Document_Type: Tipo de documento
   Location: Ubicación
   Latitude: Latitud
   Longitude: Longitud
   Description: Descripción
-  Enabled: Activo
+  Enabled: Encendido
+  Active: Activo
+  Address: Dirección
   Categories: Categorias
   Created_at: Creado
   Updated_at: Actualizado
@@ -50,21 +63,68 @@ es:
   no_file: Aún no se ha subido ningún archivo.
   remove: Eliminar
   Print: Imprimir
+  Products: Productos
+  Company: Entidad
   Roles: Roles de Usuario
   Categories: Categorías
+  Portfolios: Portfolios
+  Portfolio: Portfolio
+  Portfolio_Details: Detalles del Portfolio
+  Campaigns: Campañas
+  Campaign: Campaña
+  Campaign_Details: Detalles de campaña
   Country: Pais
-  State: Region
+  Region: Region
   City: Ciudad
+  Status: Estado
+  Start: Inicio
+  End: Fin
+  Observations: Observaciones
+  Client: Cliente
+  User: Usuario
   category_details: Detalles de Categoría
   created_at: Fecha de Creación
   updated_at: Fecha de Actualización
+  Contact_Mean_Type: Tipo de contacto
+  Client_Contact_Means: Contactos
+  Target: Contacto
+  Client_Products: Productos
+  Balance: Saldo
+  Arrears: Intereses punitorios
+  Total_With_Arrears: Total
+  Days_Late: Días de Retraso
   activerecord:
     models:
       company:
         one: Entidad
         other: Entidades
-
+      company_product:
+        one: Producto
+        other: Productos
+      portfolio:
+        one: Portfolio
+        other: Portfolios
+      campaign:
+        one: Campaña
+        other: Campañas
+      client:
+        one: Cliente
+        other: Clientes
+      client_contact_mean:
+        one: Contacto
+        other: Contactos
+      client_product:
+        one: Producto
+        other: Productos
     attributes:
+      campaign:
+        i18n:
+          status:
+            planned: Planeado
+            started: Iniciado
+            completed: Completado
+            on_hold: En espera
+            called_off: Suspendido
       user:
         name: Nombre
         company_id: Entidad
@@ -79,6 +139,13 @@ es:
         current_sign_in_ip: IP Actual de ingreso
         last_sign_in_ip: Última IP de ingreso
         my_roles: Roles
+        my_companies: Entidades
+        i18n:
+          roles:
+            admin: Super Administrador
+            campaign_admin: Administrador de Campaña
+            campaign_user: Usuario de campaña o Agente
+            external_user: Usuario Externo (de Entidad)
       company:
         name: Nombre
         enabled: Activo
@@ -88,6 +155,14 @@ es:
       attachment:
         path: Archivo
         name: Archivo
+      portfolio:
+        company_id: Entidad
+      client:
+        i18n:
+          countries:
+            PY: Paraguay
+            AR: Argentina
+            BR: Brasil
   errors:
     messages:
       extension_whitelist_error: Formato no permitido
@@ -121,3 +196,6 @@ es:
           succesfully_destroyed:
             one: Se ha destruido 1 Entidad con éxito
             other: 'Se han destruido %{count} Entidades con éxito'
+      portfolio:
+        name: Portfolio
+

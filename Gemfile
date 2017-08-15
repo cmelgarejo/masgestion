@@ -57,7 +57,7 @@ gem 'jquery-palette-color-picker-rails', git: 'https://github.com/cmelgarejo/jqu
 gem 'chosen-rails'
 gem 'country_state_select', git: 'https://github.com/cmelgarejo/Country-State-Select'
 
-#gem 'formadmin'
+gem 'formadmin'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary' if !Gem.win_platform?
 gem 'wkhtmltopdf-heroku' if !Gem.win_platform?
@@ -65,6 +65,7 @@ gem 'wkhtmltopdf-heroku' if !Gem.win_platform?
 gem 'awesome_print', require:'ap'
 
 group :development, :test do
+  #gem 'binding_of_caller' #Heavy gem!
   gem 'wdm', '>= 0.1.0' if Gem.win_platform?
   gem 'faker'
   gem 'byebug', platform: :mri

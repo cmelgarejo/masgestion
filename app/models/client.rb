@@ -1,4 +1,29 @@
 class Client < ApplicationRecord
-  has_paper_trail
+  belongs_to :company, optional: true
+  belongs_to :document_type
+  has_many :client_contact_means
+  has_many :client_references
+  has_many :client_collection_histories
+  has_many :client_products
+  has_many :client_product_payments
+  accepts_nested_attributes_for :client_contact_means, :allow_destroy => true
+  accepts_nested_attributes_for :client_references, :allow_destroy => true
+  accepts_nested_attributes_for :client_collection_histories, :allow_destroy => true
+  accepts_nested_attributes_for :client_products, :allow_destroy => true
+  accepts_nested_attributes_for :client_product_payments, :allow_destroy => true
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :document, presence: true
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
+  def self.countries
+    countries = [['Paraguay', 'PY'], ['Argentina', 'AR'], ['Brasil', 'BR']]
+    countries.map do |_, index|
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.i18n.countries.#{index}"), index ]
+    end
+  end
 end

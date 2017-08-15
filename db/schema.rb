@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 101) do
     t.uuid     "client_id"
     t.integer  "client_collection_category_id"
     t.integer  "client_collection_type_id"
+    t.integer  "user_id"
     t.decimal  "promise_amount",                default: "0.0"
     t.date     "promise_date"
     t.text     "observations"
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 101) do
     t.index ["client_collection_category_id"], name: "index_client_collection_history_on_category_id", using: :btree
     t.index ["client_collection_type_id"], name: "index_client_collection_history_on_category_type_id", using: :btree
     t.index ["client_id"], name: "index_client_collection_history_on_client_id", using: :btree
+    t.index ["user_id"], name: "index_client_collection_history_on_user_id", using: :btree
   end
 
   create_table "client_collection_types", force: :cascade do |t|
@@ -301,7 +303,9 @@ ActiveRecord::Schema.define(version: 101) do
   add_foreign_key "client_collection_history", "client_collection_categories"
   add_foreign_key "client_collection_history", "client_collection_types"
   add_foreign_key "client_collection_history", "clients"
+  add_foreign_key "client_collection_history", "users"
   add_foreign_key "client_contact_means", "clients"
+  add_foreign_key "client_contact_means", "contact_mean_types", column: "contact_mean_types_id"
   add_foreign_key "client_product_payments", "client_products"
   add_foreign_key "client_product_payments", "clients"
   add_foreign_key "client_products", "clients"

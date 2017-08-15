@@ -182,6 +182,8 @@ GEM
     file_validators (2.1.0)
       activemodel (>= 3.0)
       mime-types (>= 1.0)
+    formadmin (0.2.0)
+      activeadmin
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -465,6 +467,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   file_validators
+  formadmin
   haml
   high_voltage
   hirb

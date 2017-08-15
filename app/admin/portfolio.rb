@@ -1,17 +1,17 @@
-ActiveAdmin.register Company do
-  permit_params :name, :description, :active
+ActiveAdmin.register Portfolio do
+  permit_params :name, :description, :active, :company_id
 
-  menu parent: I18n.t('Companies'), priority: 1, label: I18n.t('Companies')
+  menu parent: I18n.t('Companies'), priority: 3, label: I18n.t('Portfolios')
 
-  index title: I18n.t('Companies') do
+  index title: I18n.t('Portfolios') do
     selectable_column
     #id_column
     column I18n.t('Name') do |resource|
-      link_to resource.name, admin_company_path(resource)
+      link_to resource.name, admin_portfolio_path(resource)
     end
 
-    column I18n.t('Description'), :description
     bool_column I18n.t('Active'), :active
+    column I18n.t('Companies'), :company
     column I18n.t('Created_at'), :created_at
     column I18n.t('Updated_at'), :updated_at
     actions
@@ -19,13 +19,10 @@ ActiveAdmin.register Company do
 
   show do
     tabs do
-      tab I18n.t('Company') do
+      tab I18n.t('Portfolio') do
         attributes_table do
           row I18n.t('Name') do
             resource.name
-          end
-          row I18n.t('Description') do
-            resource.description
           end
           bool_row I18n.t('Active') do
             resource.active
@@ -38,9 +35,9 @@ ActiveAdmin.register Company do
           end
         end
       end
-      tab I18n.t('Products') do
-        table_for resource.company_products do
-          column I18n.t('Description'), :description
+      tab I18n.t('Campaigns') do
+        table_for resource.campaigns do
+          column I18n.t('Name'), :name
           column I18n.t('created_at'), :created_at
           column I18n.t('updated_at'), :update_at
         end
@@ -50,7 +47,6 @@ ActiveAdmin.register Company do
   end
 
   filter :name
-  filter :description
   filter :active
   filter :created_at
   filter :updated_at
@@ -61,9 +57,9 @@ ActiveAdmin.register Company do
       f.action :submit, label: I18n.t('save')
       cancel_link
     end
-    f.inputs I18n.t('Company_Details') do
+    f.inputs I18n.t('Portfolio_Details') do
       f.input :name, label: I18n.t('Name'), input_html: {autofocus: true}
-      f.input :description, label: I18n.t('Description')
+      f.input :company_id, as: :select, collection: Company.all, include_blank: false, input_html: {class: 'select2'} #TODO: limit scope by user in the future
       if f.object.new_record?
         f.input :active, label: I18n.t('Active'), input_html: {checked: true}
       else
