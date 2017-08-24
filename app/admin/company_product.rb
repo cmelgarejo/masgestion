@@ -48,7 +48,7 @@ ActiveAdmin.register CompanyProduct do
   filter :updated_at
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors *f.object.errors.keys
     f.actions do
       f.action :submit, label: I18n.t('save')
       cancel_link

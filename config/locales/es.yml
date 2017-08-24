@@ -1,5 +1,6 @@
 ---
 es:
+  -:  
   upload_limit_size_message: El tamaño en conjunto de los archivos no puede superar
   api:
     not_authorized: No estás autorizado
@@ -28,6 +29,7 @@ es:
   Companies: Entidades
   Company_Product: Productos
   Company_Products: Productos
+  Company_Products_Type: Tipo de Producto
   nothing_to_see_here: Nada que ver aquí, continua tu camino
   Home: Inicio
   Users: Usuarios
@@ -39,9 +41,17 @@ es:
   Item_Details: Detalles del Item
   Label: Etiqueta
   Color_Reference: Color de Referencia
+  Client_References: Referencias
+  Client_Collection_History: Historico de Gestión
+  Value: Monto
+  Payment_Date: Fecha de Pago
+  Last_Payment_Date: Fecha Último Pago
+
   Name: Nombre
+  Full_Name: Nombre completo
   First_Name: Nombres
   Last_Name: Apellidos
+  Phone: Teléfono
   Document: Documento
   Document_Type: Tipo de documento
   Location: Ubicación
@@ -79,6 +89,7 @@ es:
   Status: Estado
   Start: Inicio
   End: Fin
+  Details: Detalles
   Observations: Observaciones
   Client: Cliente
   User: Usuario
@@ -89,6 +100,10 @@ es:
   Client_Contact_Means: Contactos
   Target: Contacto
   Client_Products: Productos
+  Category_Action: Acción
+  Contact_Type: Tipo de Contacto
+  Debt_Collector: Cobrador de calle
+  History_Added: Historico agregado!
   Balance: Saldo
   Arrears: Intereses punitorios
   Total_With_Arrears: Total
@@ -110,13 +125,38 @@ es:
       client:
         one: Cliente
         other: Clientes
+      client_debt_collection:
+        one: Histórico
+        other: Históricos
       client_contact_mean:
         one: Contacto
         other: Contactos
       client_product:
         one: Producto
         other: Productos
+      client_product_payment:
+          one: Pago
+          other: Pagos
     attributes:
+      client:
+        document: Documento
+        document_type: Tipo de documento
+        first_name: Nombres
+        last_name: Apellidos
+        active: Activo
+        birthdate: Cumpleaños
+      client_debt_collection:
+        document: Documento
+        document_type: Tipo de documento
+        first_name: Nombres
+        last_name: Apellidos
+        active: Activo
+        birthdate: Cumpleaños
+      client_collection_history:
+        promise_amount: Monto
+        promise_date: Fecha de Promesa
+        observations: Observaciones
+        debt_collector: Cobrador
       campaign:
         i18n:
           status:

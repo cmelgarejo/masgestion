@@ -5,4 +5,10 @@ class ClientCollectionType < ApplicationRecord
   def name
     self.description
   end
+
+  def self.all_for_select
+    ClientCollectionType.all.map do |category|
+      [category.name, category.id]
+    end.to_h
+  end
 end

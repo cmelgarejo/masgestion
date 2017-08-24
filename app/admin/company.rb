@@ -39,10 +39,12 @@ ActiveAdmin.register Company do
         end
       end
       tab I18n.t('Products') do
-        table_for resource.company_products do
-          column I18n.t('Description'), :description
-          column I18n.t('created_at'), :created_at
-          column I18n.t('updated_at'), :update_at
+        panel I18n.t('Products') do
+          table_for resource.company_products do
+            column I18n.t('Description'), :description
+            column I18n.t('created_at'), :created_at
+            column I18n.t('updated_at'), :update_at
+          end
         end
       end
     end
@@ -56,7 +58,7 @@ ActiveAdmin.register Company do
   filter :updated_at
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors *f.object.errors.keys
     f.actions do
       f.action :submit, label: I18n.t('save')
       cancel_link

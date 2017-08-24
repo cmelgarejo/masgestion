@@ -26,7 +26,7 @@ ActiveAdmin.register User do
   filter :created_at
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors *f.object.errors.keys
     f.actions
     f.inputs t('user_details') do
       f.input :name, input_html: { autofocus: true }

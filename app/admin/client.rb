@@ -3,13 +3,17 @@ ActiveAdmin.register Client do
                 :birthdate, :address, :country, :state, :city, :lat, :lng, :active,
                 #Contact means
                 client_contact_means_attributes: [ :id, :client_id, :target, :contact_mean_types_id,
-                                                   :observations, :_destroy],
-                client_products: [:id, :client_id],
+                                                   :observations, :_destroy ],
+                client_products: [:id, :client_id, :_destroy ],
                 client_collection_history: [ :id, :client_id, :client_collection_category_id,
                                              :client_collection_type_id, :user_id, :promise_amount, :promise_date,
-                                             :observations, :debt_collector],
+                                             :observations, :debt_collector, :_destroy ],
                 client_products_attributes: [ :id, :client_id, :company_product_id, :balance, :arrears, :days_late,
-                                              :observations]
+                                              :observations, :_destroy,
+                                              client_product_payments_attributes: [ :id, :client_id, :client_product_id,
+                                                                                    :value, :payment_date, :_destroy ]],
+                client_references_attributes: [ :id, :client_id, :first_name, :last_name, :phone, :observations,
+                                                :_destroy ]
 
   menu parent: I18n.t('People'), priority: 3, label: I18n.t('Clients')
 
@@ -54,19 +58,23 @@ ActiveAdmin.register Client do
           end
         end
       end
-      tab I18n.t('Something') do
-        # table_for resource.company_products do
-        #   column :id
-        #   column I18n.t('Description'), :description
-        #   column I18n.t('created_at'), :created_at
-        #   column I18n.t('updated_at'), :update_at
-        # end
-      end
+      # tab I18n.t('Something') do
+      #   table_for resource.company_products do
+      #     column :id
+      #     column I18n.t('Description'), :description
+      #     column I18n.t('created_at'), :created_at
+      #     column I18n.t('updated_at'), :update_at
+      #   end
+      # end
     end
     #active_admin_comments
   end
 
-  filter :full_name
+  filter :document_type
+  filter :document
+  filter :first_name
+  filter :last_name
+  filter :birthdate
   filter :active
   filter :created_at
   filter :updated_at
@@ -116,14 +124,35 @@ ActiveAdmin.register Client do
       end
       tab I18n.t('Client_Products') do
         f.inputs do
-          f.has_many :client_products, heading: false, new_record: true, allow_destroy: false do |product|
+          f.has_many :client_products, heading: false, new_record: false, allow_destroy: false do |product|
             product.inputs do
-              product.input :company_product_id, as: :select, label: I18n.t('Contact_Mean_Type'),
-                                 collection: CompanyProduct.all_for_select, include_blank: false, input_html: {class: 'select2'} #TODO: limit scope by user in the future
+              product.input :company_product_id, as: :select, label: I18n.t('Client_Products'),
+                                 collection: CompanyProduct.all_for_select, include_blank: false, input_html: {class: 'select2', disabled: true} #TODO: limit scope by user in the future
               product.input :balance, label: I18n.t('Balance')
               product.input :arrears, label: I18n.t('Arrears')
-              #product.input :total_with_arrears, label: I18n.t('Total_With_Arrears')
+              product.input :total_with_arrears, label: I18n.t('Total_With_Arrears'), input_html: { disabled: true }
               product.input :days_late, label: I18n.t('Days_Late')
+              product.input :observations, label: I18n.t('Observations')
+              product.has_many :client_product_payments, new_record: true, allow_destroy: false do |payment|
+                payment.input :value, label: I18n.t('Value')
+                if payment.object.new_record?
+                  payment.input :payment_date, as: :datepicker, label: I18n.t('Payment_Date'), input_html: { value: Date.today }
+                else
+                  payment.input :payment_date, as: :datepicker, label: I18n.t('Payment_Date'), datepicker_options: { min_date: Date.today }
+                end
+                payment.input :observations, label: I18n.t('Observations')
+              end
+            end
+          end
+        end
+      end
+      tab I18n.t('Client_References') do
+        f.inputs do
+          f.has_many :client_references, heading: false, new_record: true, allow_destroy: true do |product|
+            product.inputs do
+              product.input :first_name, label: I18n.t('First_Name')
+              product.input :last_name, label: I18n.t('Last_Name')
+              product.input :phone, label: I18n.t('Phone')
               product.input :observations, label: I18n.t('Observations')
             end
           end

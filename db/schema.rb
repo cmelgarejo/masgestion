@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 101) do
     t.uuid     "client_id"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "phone"
     t.text     "observations"
     t.boolean  "active",       default: true
     t.datetime "created_at",                  null: false

@@ -118,6 +118,7 @@ span.empty {
 li.cancel a:hover,
 li.cancel a:focus {
   color: white !important;
+  background-color: #BB1122;
 }
 
 fieldset.actions {
@@ -128,9 +129,6 @@ img.thumbnail {
   width: 150px !important;
 }
 
-//.has_nested>a::after {
-//  content: "\2304";
-//}
 .nav.ui-tabs-nav.ui-tabs-nav   {
   list-style-type: none;
 }
@@ -146,4 +144,44 @@ img.thumbnail {
 .string.input > input {
   width: 65%;
   float: left;
+}
+
+li.action.input_action > input {
+  background-color: #11BB22 !important;
+}
+
+input[disabled="disabled"],
+input[disabled] {
+  background-color: #F4F4F4;
+  border: 0px solid #F4F4F4 !important;
+}
+
+div.attributes_table > table > tbody > tr.row > th {
+  padding-right: 5px;
+}
+
+.tabs.ui-tabs.ui-corner-all.ui-widget.ui-widget-content {
+  margin-top: 5px;
+  width: 90%;
+}
+
+.nav.nav-tabs.ui-tabs-nav.ui-corner-all.ui-helper-reset.ui-helper-clearfix.ui-widget-header,
+.ui-tabs-panel.ui-corner-bottom.ui-widget-content {
+  width: 92%
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1400px) {
+  .ui-tabs-panel.ui-corner-bottom.ui-widget-content,
+  .nav.nav-tabs.ui-tabs-nav.ui-corner-all.ui-helper-reset.ui-helper-clearfix.ui-widget-header {
+    width: 100%
+  }
+}
+
+#sidebar {
+  width: 30% !important;
+  margin-left: -30% !important;
+}
+
+#historico-de-gestion > div > div > div > fieldset.inputs.has_many_fields {
+  display: none;
 }

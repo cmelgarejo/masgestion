@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_admin_timezone
-    Time.zone = Rails.application.secrets.install_timezone #'Mexico/General'
+    Time.zone = Rails.application.secrets.install_timezone #'America/Asuncion '
   end
 
   protected
