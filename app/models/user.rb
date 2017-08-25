@@ -55,5 +55,3 @@ class User < ApplicationRecord
   end
 
 end
-
-User.roles_for_select
