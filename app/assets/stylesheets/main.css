@@ -1,6 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 body {
-  font-family: 'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
+    background-color: #FFFFFF;
+    background-image: url("background-logo.png");
+    background-repeat:no-repeat;
+    background-size:1920px;
+    background-position:top;
 }
 h1,
 h2,
@@ -44,10 +49,6 @@ ul li {
   list-style: none;
 }
 header {
-  background-image: url("hero-bg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding-top: 90px;
 }
 header .app-showcase {
   text-align: right;
@@ -73,10 +74,10 @@ header .block .download-btn a {
   margin-right: 10px;
 }
 #service {
-  padding: 80px 0 100px;
+  /*padding: 80px 0 100px;*/
 }
 #service .title {
-  padding-bottom: 90px;
+  padding-bottom: 80px;
 }
 #service .title h2 {
   margin-top: 0;
@@ -95,7 +96,7 @@ header .block .download-btn a {
   padding: 0 20px;
 }
 #showcase {
-  background-image: url("showcase-bg.jpg");
+  background-image: url("assets/showcase-bg.jpg");
   background-size: cover;
   baxkground-repeat: no-repeat;
 }
@@ -127,7 +128,7 @@ header .block .download-btn a {
   padding-right: 20px;
 }
 #testimonial {
-  background: url('testimonial-bg.jpg') no-repeat;
+  background: url('assets/testimonial-bg.jpg') no-repeat;
   background-size: cover;
   padding: 100px 0;
 }
@@ -189,7 +190,7 @@ header .block .download-btn a {
 }
 footer {
   padding: 60px 0;
-  background: #fafafa;
+  background: #EDEDED;
   border-top: 1px solid #d7d7d7;
 }
 footer .navbar-nav {
@@ -215,4 +216,30 @@ footer .social-link ul li a {
   font-size: 25px;
   padding: 0 5px;
   display: inline-block;
+}
+.wow h2,
+.wow h3 {
+    color: #0E3ECE !important;
+    text-shadow: 1px 1px#FFF !important;
+}
+.wow h2 {
+    font-weight: bolder;
+}
+main {
+    z-index: 9999;
+    background: transparent;
+}
+.container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+section#service {
+    padding-top: 50px;
+    background: #fefefe;
+}
+.masgestion-hr {
+    border-radius: 5px;
+    background-color: #EF2B11;
+    height: 10px;
+    width: 300px;
 }

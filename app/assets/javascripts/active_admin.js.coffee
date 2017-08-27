@@ -18,11 +18,13 @@ $(document).ready ->
 
   $('.color-picker').paletteColorPicker()
   $( ".select2" ).select2({theme: "bootstrap"}) #if window.location.pathname.match(/(client.*\/\/edit|users\/.*\/edit|client.*\/new|client.*\/new)/)
+
   if window.location.pathname.match(/.*debt.*\/edit/)
     $('.button.has_many_add').click ->
       setTimeout ->
         $('.button.has_many_add').prev().css('display','inherit')
       , 100
+
   CountryStateSelect({
     country_id: "client_country", state_id: "client_state", city_id: "client_city",
     chosen_ui: true,
