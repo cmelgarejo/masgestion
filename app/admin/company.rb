@@ -9,8 +9,8 @@ ActiveAdmin.register Company do
     column I18n.t('Name') do |resource|
       link_to resource.name, admin_company_path(resource)
     end
-
     column I18n.t('Description'), :description
+    #column I18n.t('Reference_Code'), :ref_code
     bool_column I18n.t('Active'), :active
     column I18n.t('Created_at'), :created_at
     column I18n.t('Updated_at'), :updated_at

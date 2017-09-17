@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 101) do
+ActiveRecord::Schema.define(version: 108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,9 +58,15 @@ ActiveRecord::Schema.define(version: 101) do
     t.boolean  "debt_collector",                default: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
+    t.integer  "history_type_id"
+    t.integer  "client_product_id"
+    t.integer  "client_contact_means_id"
     t.index ["client_collection_category_id"], name: "index_client_collection_history_on_category_id", using: :btree
     t.index ["client_collection_type_id"], name: "index_client_collection_history_on_category_type_id", using: :btree
+    t.index ["client_contact_means_id"], name: "index_client_collection_history_on_client_contact_means_id", using: :btree
     t.index ["client_id"], name: "index_client_collection_history_on_client_id", using: :btree
+    t.index ["client_product_id"], name: "index_client_collection_history_on_client_product_id", using: :btree
+    t.index ["history_type_id"], name: "index_client_collection_history_on_history_type_id", using: :btree
     t.index ["user_id"], name: "index_client_collection_history_on_user_id", using: :btree
   end
 
@@ -138,6 +144,8 @@ ActiveRecord::Schema.define(version: 101) do
     t.uuid     "company_id"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "ref_code"
+    t.jsonb    "original_data"
     t.index "point(lat, lng)", name: "index_clients_latlng_spgist", using: :spgist
     t.index ["company_id"], name: "index_clients_on_company_id", using: :btree
     t.index ["country", "state", "city"], name: "index_clients_on_country_and_state_and_city", using: :btree
@@ -152,6 +160,7 @@ ActiveRecord::Schema.define(version: 101) do
     t.boolean  "active"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "ref_code"
   end
 
   create_table "company_products", force: :cascade do |t|
@@ -161,6 +170,7 @@ ActiveRecord::Schema.define(version: 101) do
     t.boolean  "active"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "ref_code"
     t.index ["company_id"], name: "index_company_products_on_company_id", using: :btree
     t.index ["product_type_id"], name: "index_company_products_on_product_type_id", using: :btree
   end
@@ -177,6 +187,12 @@ ActiveRecord::Schema.define(version: 101) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["description"], name: "index_document_types_on_description", using: :btree
+  end
+
+  create_table "history_types", force: :cascade do |t|
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "opportunities", force: :cascade do |t|
@@ -303,7 +319,10 @@ ActiveRecord::Schema.define(version: 101) do
   add_foreign_key "campaigns", "portfolios"
   add_foreign_key "client_collection_history", "client_collection_categories"
   add_foreign_key "client_collection_history", "client_collection_types"
+  add_foreign_key "client_collection_history", "client_contact_means", column: "client_contact_means_id"
+  add_foreign_key "client_collection_history", "client_products"
   add_foreign_key "client_collection_history", "clients"
+  add_foreign_key "client_collection_history", "history_types"
   add_foreign_key "client_collection_history", "users"
   add_foreign_key "client_contact_means", "clients"
   add_foreign_key "client_contact_means", "contact_mean_types", column: "contact_mean_types_id"

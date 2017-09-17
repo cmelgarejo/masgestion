@@ -23,6 +23,7 @@ ActiveAdmin.register Client do
     column I18n.t('Name') do |resource|
       link_to resource.full_name, admin_client_path(resource)
     end
+    #column I18n.t('Reference_Code'), :ref_code
     column I18n.t('Document_Type'), :document_type
     column I18n.t('Document'), :document
     column I18n.t('Company'), :company
@@ -43,8 +44,8 @@ ActiveAdmin.register Client do
             resource.document
           end
           row I18n.t('Address') do
-            state = CountryStateSelect.collect_states(resource.country).select{|state| state.last.to_s == resource.state}.last.first
-            country = CountryStateSelect.countries_collection.select{|country| country.last.to_s == resource.country}.last.first
+            state = resource.country ? CountryStateSelect.collect_states(resource.country).select {|state| state.last.to_s == resource.state}.last.first : nil
+            country = resource.country ? CountryStateSelect.countries_collection.select {|country| country.last.to_s == resource.country}.last.first : nil
             "#{resource.address}, #{resource.city}, #{state}, #{country}"
           end
           bool_row I18n.t('Active') do

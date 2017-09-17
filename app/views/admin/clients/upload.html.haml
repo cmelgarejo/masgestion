@@ -1,0 +1,21 @@
+= form_for :upload, url: {action: 'import'}, html: { multipart: true } do |f|
+  %table
+    %tr
+      %td
+        %label{for: 'upload'}
+          =I18n.t('Import')
+      %td
+        = f.file_field :file
+    %tr
+      %td
+        =I18n.t('Client')
+      %td
+        = f.collection_select :company_id, Company.all, :id, :name
+    %tr
+      %td
+        =I18n.t('Campaign')
+      %td
+        = f.collection_select :campaign_id, Campaign.all, :id, :name
+    %tr
+      %td
+        = submit_tag I18n.t('Import')

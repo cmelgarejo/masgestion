@@ -4,7 +4,18 @@ class ClientContactMean < ApplicationRecord
   belongs_to :client
   validates :target, presence: true
 
-  def contact_mean_type
-    ContactMeanType.find(self.contact_mean_types_id).description
+  def name
+    self.contact_mean_type
   end
+
+  def contact_mean_type
+    "#{ContactMeanType.find(self.contact_mean_types_id).description} - #{self.target}"
+  end
+
+  def self.contacts_for_client(client_id)
+    ClientContactMean.where(client_id: client_id).map {|contact|
+      ["#{contact.contact_mean_type} - #{contact.target}", contact.id]}.to_h
+  end
+
+
 end

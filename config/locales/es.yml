@@ -42,7 +42,7 @@ es:
   Label: Etiqueta
   Color_Reference: Color de Referencia
   Client_References: Referencias
-  Client_Collection_History: Historico de Gestión
+  Client_Collection_History: Gestiones
   Value: Monto
   Payment_Date: Fecha de Pago
   Last_Payment_Date: Fecha Último Pago
@@ -58,6 +58,7 @@ es:
   Latitude: Latitud
   Longitude: Longitud
   Description: Descripción
+  Reference_Code: Código de Referencia
   Enabled: Encendido
   Active: Activo
   Address: Dirección
@@ -100,7 +101,15 @@ es:
   Client_Contact_Means: Contactos
   Target: Contacto
   Client_Products: Productos
+  History_Type: Tipo de Gestión
   Category_Action: Acción
+  Import_Excel: Importar Excel
+  Import: Importar
+  Import_For_Campaign: Importar Registros para Campaña
+  Import_File: Archivo a importar
+  Import_Success: La importación ha sido exitosa!
+  Import_Clients: Importar Clientes
+  Import_Label: Selecciona el archivo a importar
   Contact_Type: Tipo de Contacto
   Debt_Collector: Cobrador de calle
   History_Added: Historico agregado!
@@ -125,6 +134,10 @@ es:
       client:
         one: Cliente
         other: Clientes
+      client_collection_history:
+        document_type: Tipo de documento
+        one: Histórico
+        other: Históricos
       client_debt_collection:
         one: Histórico
         other: Históricos
@@ -152,7 +165,21 @@ es:
         last_name: Apellidos
         active: Activo
         birthdate: Cumpleaños
+      client_debt_collections:
+        document: Documento
+        document_type: Tipo de documento
+        first_name: Nombres
+        last_name: Apellidos
+        active: Activo
+        birthdate: Cumpleaños
       client_collection_history:
+        history_type: Tipo de Gestión
+        client_products: Producto
+        client_contact_mean: Contacto
+        client_contact_means: Contacto
+        created_at: Fecha y Hora
+        client_collection_category: Acción
+        client_collection_type: Tipo de Contacto
         promise_amount: Monto
         promise_date: Fecha de Promesa
         observations: Observaciones
@@ -212,12 +239,19 @@ es:
         from: Desde
         to: Hasta
     dashboard: Dashboard
+    import: Importar
+    upload: Subir archivo para importación
     resources:
       attachment:
         new_model: Agregar Archivo
         edit_model: Editar Archivo
         save_model: Editar Archivo
         has_many_new: Agregar Archivo
+      client_debt_collections:
+        has_many_new: Agregar histórico
+        document_type: Tipo de Documento
+      client_collection_history:
+        document_type: Tipo de Documento
       company:
         name: Entidad
         new_model: Agregar Entidad

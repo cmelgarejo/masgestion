@@ -9,7 +9,7 @@ ActiveAdmin.register CompanyProduct do
     column I18n.t('Name') do |company|
       link_to company.description, admin_company_product_path(company)
     end
-
+    #column I18n.t('Reference_Code'), :ref_code
     column I18n.t('Description'), :description
     bool_column I18n.t('Active'), :active
     column I18n.t('Created_at'), :created_at
