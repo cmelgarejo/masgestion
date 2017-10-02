@@ -36,7 +36,7 @@ ActiveAdmin.register Client, as: 'ClientDebtCollection' do
     #first_name, last_name, document_type_id, document, birthdate, address, country, state, city, lat, lng, active, company_id, ref_code
     gestiones.rows.each do |row|
       fullname = row['nombre_completo'].split(',').map(&:strip).reverse
-      document = row['numero_cedula'].to_s.strip.gsub(/\.0*$/, "")
+      document = row['numero_cedula'].to_s.strip.gsub(/\.0*$/, '')
       address = row['direccion'].to_s.strip
       first_name = fullname.first
       last_name = fullname.last

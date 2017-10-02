@@ -1,6 +1,7 @@
 ---
 es:
   -:  
+  client_collection_call_to_action: Haga click aquí para ingresar Gestiones
   upload_limit_size_message: El tamaño en conjunto de los archivos no puede superar
   api:
     not_authorized: No estás autorizado
@@ -238,6 +239,9 @@ es:
       predicates:
         from: Desde
         to: Hasta
+    dashboard_welcome:
+      welcome: Bienvenido al CRM de MasGestión
+      call_to_action: Porá observar distintas vistas de información aquí en el futuro
     dashboard: Dashboard
     import: Importar
     upload: Subir archivo para importación
