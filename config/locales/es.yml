@@ -169,8 +169,8 @@ es:
         one: Tipo de Gestión
         other: Tipos de Gestión
       contact_mean_type:
-        one: Contacto
-        other: Contactos
+        one: Tipo de Contacto
+        other: Tipos de Contacto
       client_collection_categories:
         one: Acción
         other: Acciones
