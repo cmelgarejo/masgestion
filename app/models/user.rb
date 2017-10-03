@@ -21,6 +21,16 @@ class User < ApplicationRecord
   has_many :user_companies, dependent: :destroy
   has_many :companies, through: :user_companies
 
+  has_many :campaign_details
+  has_many :campaigns, through: :campaign_details
+
+  has_many :client_collection_histories
+  #has_many :clients, through: :campaign_details
+
+  def clients
+    Client.where(id: CampaignDetail.where(user_id: self.id).map(&:client_id))
+  end
+
   def has_role?(name)
     roles.pluck(:name).member?(name.to_s)
   end

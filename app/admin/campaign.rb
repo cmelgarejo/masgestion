@@ -48,9 +48,12 @@ ActiveAdmin.register Campaign do
         end
       end
       tab I18n.t('Campaign_Details') do
-        table_for resource.campaign_details do
-          column I18n.t('Client'), :client
-          column I18n.t('User'), :user
+        table_for resource.campaign_details do |details|
+          ap resource.campaign_details
+          ap details
+          column I18n.t('Client'), :client_id
+          column I18n.t('User'), :user_id
+          column I18n.t('Observations'), :observations
           column I18n.t('created_at'), :created_at
           column I18n.t('updated_at'), :update_at
         end

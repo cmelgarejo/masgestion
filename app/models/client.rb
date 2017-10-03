@@ -25,6 +25,10 @@ class Client < ApplicationRecord
     "#{self.first_name} #{self.last_name}"
   end
 
+  def contacts_for_client
+    self.client_contact_means
+  end
+
   def self.countries
     countries = [['Paraguay', 'PY'], ['Argentina', 'AR'], ['Brasil', 'BR']]
     countries.map do |_, index|

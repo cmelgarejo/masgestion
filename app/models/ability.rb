@@ -12,10 +12,10 @@ class Ability
     end
     if user.has_role?(:campaign_user) && !user.has_role?(:admin) && !user.has_role?(:campaign_admin)
       can :manage, [Client, ClientContactMean, ClientCollectionHistory]
-      can :read, ActiveAdmin::Page
+      can :read, [ActiveAdmin::Page]
     end
     if user.has_role?(:external_user) #Shall have it's own Dashboard and etc
-      can :read, ActiveAdmin::Page
+      can :read, [ActiveAdmin::Page, Client, ClientCollectionHistory]
     end
   end
 end

@@ -18,7 +18,7 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
+        'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
     }
   else
     config.action_controller.perform_caching = false
@@ -52,7 +52,7 @@ Rails.application.configure do
       password: Rails.application.secrets.email_provider_password
   }
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = {:host => 'localhost:3500'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   # Send email in development mode?
@@ -74,7 +74,7 @@ Rails.application.configure do
     Bullet.bullet_logger = false
     Bullet.console = true
     Bullet.rails_logger = true
-    Bullet.add_footer = true
+    Bullet.add_footer = false
     # Bullet.growl = true
     # Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
     #                 :password => 'bullets_password_for_jabber',

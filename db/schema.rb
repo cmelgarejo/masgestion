@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(version: 108) do
     t.datetime "updated_at",                                    null: false
     t.integer  "history_type_id"
     t.integer  "client_product_id"
-    t.integer  "client_contact_means_id"
+    t.integer  "client_contact_mean_id"
     t.index ["client_collection_category_id"], name: "index_client_collection_history_on_category_id", using: :btree
     t.index ["client_collection_type_id"], name: "index_client_collection_history_on_category_type_id", using: :btree
-    t.index ["client_contact_means_id"], name: "index_client_collection_history_on_client_contact_means_id", using: :btree
+    t.index ["client_contact_mean_id"], name: "index_client_collection_history_on_client_contact_mean_id", using: :btree
     t.index ["client_id"], name: "index_client_collection_history_on_client_id", using: :btree
     t.index ["client_product_id"], name: "index_client_collection_history_on_client_product_id", using: :btree
     t.index ["history_type_id"], name: "index_client_collection_history_on_history_type_id", using: :btree
@@ -319,7 +319,7 @@ ActiveRecord::Schema.define(version: 108) do
   add_foreign_key "campaigns", "portfolios"
   add_foreign_key "client_collection_history", "client_collection_categories"
   add_foreign_key "client_collection_history", "client_collection_types"
-  add_foreign_key "client_collection_history", "client_contact_means", column: "client_contact_means_id"
+  add_foreign_key "client_collection_history", "client_contact_means"
   add_foreign_key "client_collection_history", "client_products"
   add_foreign_key "client_collection_history", "clients"
   add_foreign_key "client_collection_history", "history_types"

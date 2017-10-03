@@ -19,7 +19,8 @@ $(document).ready ->
   $('.color-picker').paletteColorPicker()
   $( ".select2" ).select2({theme: "bootstrap"}) #if window.location.pathname.match(/(client.*\/\/edit|users\/.*\/edit|client.*\/new|client.*\/new)/)
 
-  if window.location.pathname.match(/.*debt.*\/edit/)
+  if window.location.pathname.match(/.*clients.*\/edit/)
+    $('li[id^="client_client_collection_history_attributes_"][class^=hidden]').remove()
     $('.button.has_many_add').click ->
       setTimeout ->
         $('.button.has_many_add').prev().css('display','inherit')

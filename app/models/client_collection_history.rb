@@ -4,7 +4,7 @@ class ClientCollectionHistory < ApplicationRecord
   belongs_to :client_collection_category
   belongs_to :client_collection_type
   belongs_to :client_contact_mean, optional: true
-  belongs_to :client_product
+  belongs_to :client_product, optional: true
   belongs_to :history_type
   belongs_to :client
   belongs_to :user

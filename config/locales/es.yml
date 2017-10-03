@@ -1,7 +1,7 @@
 ---
 es:
   -:  
-  client_collection_call_to_action: Haga click aquí para ingresar Gestiones
+  client_manager_call_to_action: Haga click aquí para ingresar Gestiones
   upload_limit_size_message: El tamaño en conjunto de los archivos no puede superar
   api:
     not_authorized: No estás autorizado
@@ -25,9 +25,16 @@ es:
   Client_Details: Detalles del cliente
   Company_Details: Detalles de la entidad
   Company_Product_Details: Detalles del Producto
+  Configuration: Configuraciones
   People: Personas
   Clients: Clientes
   Companies: Entidades
+  History_Type: Tipo de Gestión
+  History_Type_Details: Detalles del tipo de Gestión
+  Contact_Mean_Type: Tipo de contacto
+  Contact_Mean_Type_Details: Detalles del tipo de contacto
+  Client_Collection_Categories: Tipo de Gestión
+  Client_Collection_Categories_Details: Detalles del tipo de Gestión
   Company_Product: Productos
   Company_Products: Productos
   Company_Products_Type: Tipo de Producto
@@ -44,6 +51,8 @@ es:
   Color_Reference: Color de Referencia
   Client_References: Referencias
   Client_Collection_History: Gestiones
+  Client_History: Gestiones
+  Client_Manager: Clientes a gestionar
   Value: Monto
   Payment_Date: Fecha de Pago
   Last_Payment_Date: Fecha Último Pago
@@ -68,6 +77,8 @@ es:
   Updated_at: Actualizado
   Download: Descargar
   save: Guardar
+  cancel: Cancelar
+  back: Volver
   last_20_items: Últimos 20 registros
   Associations: Asociaciones
   Parents: Pertenece a item(s)
@@ -120,6 +131,9 @@ es:
   Days_Late: Días de Retraso
   activerecord:
     models:
+      client_history:
+        one: Gestion
+        other: Gestiones
       company:
         one: Entidad
         other: Entidades
@@ -149,8 +163,17 @@ es:
         one: Producto
         other: Productos
       client_product_payment:
-          one: Pago
-          other: Pagos
+        one: Pago
+        other: Pagos
+      history_type:
+        one: Tipo de Gestión
+        other: Tipos de Gestión
+      contact_mean_type:
+        one: Contacto
+        other: Contactos
+      client_collection_categories:
+        one: Acción
+        other: Acciones
     attributes:
       client:
         document: Documento
@@ -180,8 +203,12 @@ es:
         client_contact_means: Contacto
         created_at: Fecha y Hora
         client_collection_category: Acción
+        client: Cliente
+        client_product: Producto
+        user: Agente
+        updated_at: Actualizado
         client_collection_type: Tipo de Contacto
-        promise_amount: Monto
+        promise_amount: Monto promesa
         promise_date: Fecha de Promesa
         observations: Observaciones
         debt_collector: Cobrador
@@ -214,6 +241,18 @@ es:
             campaign_admin: Administrador de Campaña
             campaign_user: Usuario de campaña o Agente
             external_user: Usuario Externo (de Entidad)
+      history_type:
+        description: Descripción
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
+      contact_mean_type:
+        description: Descripción
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
+      client_collection_categories:
+        description: Descripción
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
       company:
         name: Nombre
         enabled: Activo
@@ -256,6 +295,9 @@ es:
         document_type: Tipo de Documento
       client_collection_history:
         document_type: Tipo de Documento
+      history_type:
+        name: Tipo de Gestión
+        new_model: Agregar Tipo de Gestión
       company:
         name: Entidad
         new_model: Agregar Entidad

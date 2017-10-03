@@ -1,21 +1,21 @@
-ActiveAdmin.register Client do
+ActiveAdmin.register Client, as: 'ClientManager' do
   permit_params :first_name, :last_name, :document_type_id, :company_id, :document,
                 :birthdate, :address, :country, :state, :city, :lat, :lng, :active,
                 #Contact means
-                client_contact_means_attributes: [ :id, :client_id, :target, :contact_mean_types_id,
-                                                   :observations, :_destroy ],
-                client_products: [:id, :client_id, :_destroy ],
-                client_collection_history: [ :id, :client_id, :client_collection_category_id,
-                                             :client_collection_type_id, :user_id, :promise_amount, :promise_date,
-                                             :observations, :debt_collector, :_destroy ],
-                client_products_attributes: [ :id, :client_id, :company_product_id, :balance, :arrears, :days_late,
-                                              :observations, :_destroy,
-                                              client_product_payments_attributes: [ :id, :client_id, :client_product_id,
-                                                                                    :value, :payment_date, :_destroy ]],
-                client_references_attributes: [ :id, :client_id, :first_name, :last_name, :phone, :observations,
-                                                :_destroy ]
+                client_contact_means_attributes: [:id, :client_id, :target, :contact_mean_types_id,
+                                                  :observations, :_destroy],
+                client_products: [:id, :client_id, :_destroy],
+                client_collection_history: [:id, :client_id, :client_collection_category_id,
+                                            :client_collection_type_id, :user_id, :promise_amount, :promise_date,
+                                            :observations, :debt_collector, :_destroy],
+                client_products_attributes: [:id, :client_id, :company_product_id, :balance, :arrears, :days_late,
+                                             :observations, :_destroy,
+                                             client_product_payments_attributes: [:id, :client_id, :client_product_id,
+                                                                                  :value, :payment_date, :_destroy]],
+                client_references_attributes: [:id, :client_id, :first_name, :last_name, :phone, :observations,
+                                               :_destroy]
 
-  menu parent: I18n.t('People'), priority: 3, label: I18n.t('Clients')
+  menu if: proc {current_user.admin?}, parent: I18n.t('People'), priority: 3, label: I18n.t('Clients')
 
   index title: I18n.t('Clients') do
     selectable_column
@@ -101,10 +101,10 @@ ActiveAdmin.register Client do
                   collection: Client.countries
           f.input :state, as: :select, include_blank: false, label: I18n.t('Region'), #input_html: {class: 'select2'},
                   collection: CountryStateSelect.states_collection(f, country: :country),
-                  options: CountryStateSelect.state_options(form: f, field_names: { country: :country, state: :state })
+                  options: CountryStateSelect.state_options(form: f, field_names: {country: :country, state: :state})
           f.input :city, as: :select, include_blank: false, label: I18n.t('City'), #input_html: {class: 'select2'},
                   collection: CountryStateSelect.cities_collection(f, country: :country, state: :state),
-                  options: CountryStateSelect.city_options(form: f, field_names: { state: :state, city: :city })
+                  options: CountryStateSelect.city_options(form: f, field_names: {state: :state, city: :city})
           if f.object.new_record?
             f.input :active, label: I18n.t('Active'), input_html: {checked: true}
           else
@@ -128,18 +128,18 @@ ActiveAdmin.register Client do
           f.has_many :client_products, heading: false, new_record: false, allow_destroy: false do |product|
             product.inputs do
               product.input :company_product_id, as: :select, label: I18n.t('Client_Products'),
-                                 collection: CompanyProduct.all_for_select, include_blank: false, input_html: {class: 'select2', disabled: true} #TODO: limit scope by user in the future
+                            collection: CompanyProduct.all_for_select, include_blank: false, input_html: {class: 'select2', disabled: true} #TODO: limit scope by user in the future
               product.input :balance, label: I18n.t('Balance')
               product.input :arrears, label: I18n.t('Arrears')
-              product.input :total_with_arrears, label: I18n.t('Total_With_Arrears'), input_html: { disabled: true }
+              product.input :total_with_arrears, label: I18n.t('Total_With_Arrears'), input_html: {disabled: true}
               product.input :days_late, label: I18n.t('Days_Late')
               product.input :observations, label: I18n.t('Observations')
               product.has_many :client_product_payments, new_record: true, allow_destroy: false do |payment|
                 payment.input :value, label: I18n.t('Value')
                 if payment.object.new_record?
-                  payment.input :payment_date, as: :datepicker, label: I18n.t('Payment_Date'), input_html: { value: Date.today }
+                  payment.input :payment_date, as: :datepicker, label: I18n.t('Payment_Date'), input_html: {value: Date.today}
                 else
-                  payment.input :payment_date, as: :datepicker, label: I18n.t('Payment_Date'), datepicker_options: { min_date: Date.today }
+                  payment.input :payment_date, as: :datepicker, label: I18n.t('Payment_Date'), datepicker_options: {min_date: Date.today}
                 end
                 payment.input :observations, label: I18n.t('Observations')
               end

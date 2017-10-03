@@ -16,7 +16,7 @@ ActiveAdmin.register_page 'Dashboard' do
       span class: 'blank_slate' do
         span I18n.t('active_admin.dashboard_welcome.welcome')
         small I18n.t('active_admin.dashboard_welcome.call_to_action')
-        small link_to I18n.t('client_collection_call_to_action'), admin_client_debt_collections_path
+        #small link_to I18n.t('client_manager_call_to_action'), admin_client_history_path
       end
     end
   end
