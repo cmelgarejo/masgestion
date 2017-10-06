@@ -1,6 +1,8 @@
 ---
 es:
-  -:  
+  -:
+  upload_import_fields: Campos para Importación
+  upload_import_contact_fields: Contactos
   client_manager_call_to_action: Haga click aquí para ingresar Gestiones
   upload_limit_size_message: El tamaño en conjunto de los archivos no puede superar
   api:
@@ -117,8 +119,9 @@ es:
   Category_Action: Acción
   Import_Excel: Importar Excel
   Import: Importar
-  Import_For_Campaign: Importar Registros para Campaña
+  Import_For_Campaign: Importar Registros a Gestionar
   Import_File: Archivo a importar
+  Import_Preview: Vista previa
   Import_Success: La importación ha sido exitosa!
   Import_Clients: Importar Clientes
   Import_Label: Selecciona el archivo a importar
@@ -129,6 +132,10 @@ es:
   Arrears: Intereses punitorios
   Total_With_Arrears: Total
   Days_Late: Días de Retraso
+  mother:
+    fucker:
+      goto:
+        first_name: hell
   activerecord:
     models:
       client_history:
@@ -178,24 +185,37 @@ es:
       client:
         document: Documento
         document_type: Tipo de documento
+        document_type_id: Tipo de documento
         first_name: Nombres
         last_name: Apellidos
         active: Activo
-        birthdate: Cumpleaños
+        birthdate: Fecha de Nacimiento
+        address: Dirección
+        country: País
+        state: Región
+        city: Ciudad
+        lat: Latitud
+        lng: Longitud
+        ref_code: Código de referencia (ID Externo)
+        i18n:
+          countries:
+            PY: Paraguay
+            AR: Argentina
+            BR: Brasil
       client_debt_collection:
         document: Documento
         document_type: Tipo de documento
         first_name: Nombres
         last_name: Apellidos
         active: Activo
-        birthdate: Cumpleaños
+        birthdate: Fecha de Nacimiento
       client_debt_collections:
         document: Documento
         document_type: Tipo de documento
         first_name: Nombres
         last_name: Apellidos
         active: Activo
-        birthdate: Cumpleaños
+        birthdate: Fecha de Nacimiento
       client_collection_history:
         history_type: Tipo de Gestión
         client_products: Producto
@@ -264,12 +284,6 @@ es:
         name: Archivo
       portfolio:
         company_id: Entidad
-      client:
-        i18n:
-          countries:
-            PY: Paraguay
-            AR: Argentina
-            BR: Brasil
   errors:
     messages:
       extension_whitelist_error: Formato no permitido

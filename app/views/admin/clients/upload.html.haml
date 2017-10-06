@@ -1,21 +1,46 @@
+- except = %w'id active company_id created_at updated_at original_data'
 = form_for :upload, url: {action: 'import'}, html: { multipart: true } do |f|
+  = f.hidden_field :file_path, value: @file_path
   %table
+    -#%tr
+    -#  %td
+    -#    =I18n.t('Client')
+    -#  %td
+    -#    = f.collection_select :company_id, Company.all, :id, :name
+    -#%tr
+    -#  %td
+    -#    =I18n.t('Campaign')
+    -#  %td
+    -#    = f.collection_select :campaign_id, Campaign.all, :id, :name
     %tr
-      %td
-        %label{for: 'upload'}
-          =I18n.t('Import')
-      %td
-        = f.file_field :file
+      %td{col: 2, style: 'width: 200px'}
+        %hr
+          %br
     %tr
-      %td
-        =I18n.t('Client')
-      %td
-        = f.collection_select :company_id, Company.all, :id, :name
+      %td{col: 2, style: 'text-align: center'}
+        =I18n.t('upload_import_fields')
+    - (Client.column_names - except).each do |col|
+      %tr
+        %td
+          = I18n.t("activerecord.attributes.client.#{col}")
+        %td
+          - if col == 'document_type_id'
+            = f.collection_select "client_#{col}", DocumentType.all, :id, :name
+          - else
+            = f.select "client_#{col}", @data.map {|d| [d, d] }, include_blank: true
     %tr
-      %td
-        =I18n.t('Campaign')
-      %td
-        = f.collection_select :campaign_id, Campaign.all, :id, :name
+      %td{col: 2, style: 'width: 200px'}
+        %hr
+          %br
     %tr
-      %td
+      %td{col: 2, style: 'text-align: center'}
+        =I18n.t('upload_import_contact_fields')
+    - ContactMeanType.all.each do |cmt|
+      %tr
+        %td
+          = cmt.description
+        %td
+          = f.select "contact_#{cmt.id}", @data.map {|d| [d, d] }, include_blank: true
+    %tr
+      %td{col:2, style: 'text-align: center'}
         = submit_tag I18n.t('Import')

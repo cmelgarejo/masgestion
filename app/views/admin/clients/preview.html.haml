@@ -1,0 +1,8 @@
+= form_for :preview, url: {action: 'preview'}, html: { multipart: true } do |f|
+  %table
+    %tr
+      %td
+        = f.file_field :file
+    %tr
+      %td{style:'padding-left: 20px'}
+        = submit_tag I18n.t('Import_Preview')

@@ -25,39 +25,96 @@ ActiveAdmin.register Client do
   scope_to :current_user, if: proc {!current_user.admin?}
 
   action_item(:index) do
-    link_to I18n.t('Import_For_Campaign'), action: :upload if current_user.admin?
+    link_to I18n.t('Import_For_Campaign'), action: :preview if current_user.admin?
+  end
+
+  collection_action :preview do
+    render 'admin/clients/preview'
   end
 
   collection_action :upload do
     render 'admin/clients/upload'
   end
 
-  collection_action :import, :method => :post do
-    dt_ci = DocumentType.where(description: 'CI').first
-    p "IMPORT...file://#{params[:upload][:file].tempfile.path}"
-    gestiones = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Gestiones*.xls'
-    #numero_cedula	nombre_completo	direccion	telefono1_titular	telefono2_titular	telefono_celular_titular	telefono_laboral_titular	numero_clave	numero_socio	numero_cuota	fecha_desembolso	fecha_ultimo_pago	fecha_vencimiento	monto_desembolso	monto_cuota	monto_saldo	cantidad_cuota_vencida	monto_vencido	monto_interes_corriente	monto_interes_moratorio	monto_gasto_gestion	debito_automatico	formula	cantidad_cuota_pagada	tasa_interes1	tasa_interes2	dias_de_mora	ci_garante1	nombre_garante1	telefono1_garante1	telefono2_garante1	telefono3_garante1	ci_garante2	nombre_garante2	telefono1_garante2	telefono2_garante2	telefono3_garante2	fecha_ultimo_contacto	respuesta_ultimo_contacto
-    #first_name, last_name, document_type_id, document, birthdate, address, country, state, city, lat, lng, active, company_id, ref_code
-    gestiones.rows.each do |row|
-      fullname = row['nombre_completo'].split(',').map(&:strip).reverse
-      document = row['numero_cedula'].to_s.strip.gsub(/\.0*$/, '')
-      address = row['direccion'].to_s.strip
-      first_name = fullname.first
-      last_name = fullname.last
-      if Client.where(document_type: dt_ci, document: document).length < 1
-        Client.create first_name: first_name, last_name: last_name, document_type: dt_ci, document: document.to_s.strip, address: address, original_data: row
+  collection_action :preview, method: :post do
+    if params[:preview]
+      begin
+        xls = RemoteTable.new "file://#{params[:preview][:file].tempfile.path}"
+        @data = xls.rows.length > 0 ? xls.rows[0].keys : []
+        @file_path = "file://#{params[:preview][:file].tempfile.path}"
+        render 'admin/clients/upload'
+      rescue => e
+        redirect_to preview_admin_clients_path, alert: e.to_s
       end
     end
-    cuotas = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Cuotas*.xls'
-    pagos = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Pagos*.xls'
-    referencias = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Referencias*.xls'
-    p "FILE => #{cuotas.rows.length} - #{cuotas.rows.inspect}"
-    p "FILE => #{gestiones.rows.length} - #{gestiones.rows.inspect}"
-    p "FILE => #{pagos.rows.length} - #{pagos.rows.inspect}"
-    p "FILE => #{referencias.rows.length} - #{referencias.rows.inspect}"
+  end
 
-    #do stuff here
-    redirect_to admin_client_manager_path, alert: "#{I18n.t('Import_Success')}"
+  collection_action :import, method: :post do
+    upload_params = params[:upload]
+    p "HERE BE PARAMS: #{ap upload_params }"
+    document_type = DocumentType.find(upload_params[:client_document_type_id])
+    file_path = upload_params[:file_path]
+    if file_path
+      export = RemoteTable.new file_path
+      export.rows.each do |row|
+        k_first_name = upload_params[:client_first_name]
+        k_last_name = upload_params[:client_last_name]
+        k_document = upload_params[:client_document]
+        k_birthdate = upload_params[:client_birthdate]
+        k_address = upload_params[:client_address]
+        k_country = upload_params[:client_country]
+        k_state = upload_params[:client_state]
+        k_city = upload_params[:client_city]
+        k_lat = upload_params[:client_lat]
+        k_lng = upload_params[:client_lng]
+        k_ref_code = upload_params[:client_ref_code]
+        #Contacts, phase 2
+        # k__1 = upload_params[:contact_1]
+        # k__2 = upload_params[:contact_2]
+        # k__5 = upload_params[:contact_5]
+        # k__6 = upload_params[:contact_6]
+        first_name = row[k_first_name].to_s.strip
+        last_name = row[k_last_name].to_s.strip
+        document = row[k_document].to_s.strip.gsub(/\.0*$/, '')
+        birthdate = row[k_birthdate].to_s.strip
+        address = row[k_address].to_s.strip
+        country = row[k_country].to_s.strip
+        state = row[k_state].to_s.strip
+        city = row[k_city].to_s.strip
+        lat = row[k_lat]
+        lng = row[k_lng]
+        ref_code = row[k_ref_code].to_s.strip
+        p "Client.where(document_type: document_type, document: document).length  = > #{Client.where(document_type: document_type, document: document).length }"
+        if Client.where(document_type: document_type, document: document).length < 1
+          Client.create first_name: first_name, last_name: last_name, document_type: document_type, document: document.to_s.strip, address: address,
+                        birthdate: birthdate, country: country, state: state, city: city, lat: lat, lng: lng, ref_code: ref_code, original_data: row
+        end
+      end
+    end
+    #   gestiones = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Gestiones*.xls'
+    #   #numero_cedula	nombre_completo	direccion	telefono1_titular	telefono2_titular	telefono_celular_titular	telefono_laboral_titular	numero_clave	numero_socio	numero_cuota	fecha_desembolso	fecha_ultimo_pago	fecha_vencimiento	monto_desembolso	monto_cuota	monto_saldo	cantidad_cuota_vencida	monto_vencido	monto_interes_corriente	monto_interes_moratorio	monto_gasto_gestion	debito_automatico	formula	cantidad_cuota_pagada	tasa_interes1	tasa_interes2	dias_de_mora	ci_garante1	nombre_garante1	telefono1_garante1	telefono2_garante1	telefono3_garante1	ci_garante2	nombre_garante2	telefono1_garante2	telefono2_garante2	telefono3_garante2	fecha_ultimo_contacto	respuesta_ultimo_contacto
+    #   #first_name, last_name, document_type_id, document, birthdate, address, country, state, city, lat, lng, active, company_id, ref_code
+    #   gestiones.rows.each do |row|
+    #     fullname = row['nombre_completo'].split(',').map(&:strip).reverse
+    #     document = row['numero_cedula'].to_s.strip.gsub(/\.0*$/, '')
+    #     address = row['direccion'].to_s.strip
+    #     first_name = fullname.first
+    #     last_name = fullname.last
+    #     if Client.where(document_type: dt_ci, document: document).length < 1
+    #       Client.create first_name: first_name, last_name: last_name, document_type: dt_ci, document: document.to_s.strip, address: address, original_data: row
+    #     end
+    #   end
+    #   cuotas = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Cuotas*.xls'
+    #   pagos = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Pagos*.xls'
+    #   referencias = RemoteTable.new "file://#{params[:upload][:file].tempfile.path}", glob: '/Referencias*.xls'
+    #   p "FILE => #{cuotas.rows.length} - #{cuotas.rows.inspect}"
+    #   p "FILE => #{gestiones.rows.length} - #{gestiones.rows.inspect}"
+    #   p "FILE => #{pagos.rows.length} - #{pagos.rows.inspect}"
+    #   p "FILE => #{referencias.rows.length} - #{referencias.rows.inspect}"
+    #
+    #   #do stuff here
+    #   redirect_to admin_client_manager_path, alert: "#{I18n.t('Import_Success')}"
+    # end
   end
 
   filter :document_type
@@ -91,8 +148,8 @@ ActiveAdmin.register Client do
         resource.document
       end
       row I18n.t('Address') do
-        state = resource.country ? CountryStateSelect.collect_states(resource.country).select {|state| state.last.to_s == resource.state}.last.first : nil
-        country = resource.country ? CountryStateSelect.countries_collection.select {|country| country.last.to_s == resource.country}.last.first : nil
+        state = resource.country && resource.country != ''? CountryStateSelect.collect_states(resource.country).select {|state| state.last.to_s == resource.state}.last.first : nil
+        country = resource.country && resource.country != ''? CountryStateSelect.countries_collection.select {|country| country.last.to_s == resource.country}.last.first : nil
         "#{resource.address}, #{resource.city}, #{state}, #{country}"
       end
       # row I18n.t('Created_at') do
@@ -186,7 +243,7 @@ ActiveAdmin.register Client do
 
     def update
       super do |format|
-        redirect_to edit_admin_client__path(resource.id), alert: "#{I18n.t('History_Added')}" and return if resource.valid?
+        redirect_to edit_admin_client_path(resource.id), alert: "#{I18n.t('History_Added')}" and return if resource.valid?
       end
     end
 

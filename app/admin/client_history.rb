@@ -1,4 +1,3 @@
-require 'remote_table'
 ActiveAdmin.register ClientCollectionHistory, as: 'ClientHistory' do
   config.clear_action_items!
 
