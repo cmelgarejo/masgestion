@@ -1,6 +1,5 @@
----
 es:
-  -:
+  -: ''
   upload_import_fields: Campos para Importación
   upload_import_contact_fields: Contactos
   client_manager_call_to_action: Haga click aquí para ingresar Gestiones
@@ -138,6 +137,9 @@ es:
         first_name: hell
   activerecord:
     models:
+      preview:
+        one: Vista Previa
+        other: Vista Previa
       client_history:
         one: Gestion
         other: Gestiones
@@ -153,6 +155,9 @@ es:
       campaign:
         one: Campaña
         other: Campañas
+      client_manager:
+        one: Cliente
+        other: Clientes
       client:
         one: Cliente
         other: Clientes
@@ -309,6 +314,8 @@ es:
         document_type: Tipo de Documento
       client_collection_history:
         document_type: Tipo de Documento
+      preview:
+        name: Vista Previa
       history_type:
         name: Tipo de Gestión
         new_model: Agregar Tipo de Gestión

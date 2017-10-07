@@ -1,4 +1,5 @@
 class CampaignDetail < ApplicationRecord
+  belongs_to :campaign
   has_many :users
   has_many :clients
 

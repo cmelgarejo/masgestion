@@ -7,11 +7,11 @@
     -#    =I18n.t('Client')
     -#  %td
     -#    = f.collection_select :company_id, Company.all, :id, :name
-    -#%tr
-    -#  %td
-    -#    =I18n.t('Campaign')
-    -#  %td
-    -#    = f.collection_select :campaign_id, Campaign.all, :id, :name
+    %tr
+      %td
+        =I18n.t('Campaign')
+      %td
+        = f.collection_select :campaign_id, Campaign.all, :id, :name
     %tr
       %td{col: 2, style: 'width: 200px'}
         %hr

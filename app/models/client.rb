@@ -11,15 +11,20 @@ class Client < ApplicationRecord
   has_many :client_collection_history
   has_many :client_products
   has_many :client_product_payments
-  accepts_nested_attributes_for :client_contact_means, :allow_destroy => true
-  accepts_nested_attributes_for :client_references, :allow_destroy => true
-  accepts_nested_attributes_for :client_collection_history, :allow_destroy => true
-  accepts_nested_attributes_for :client_products, :allow_destroy => true
-  accepts_nested_attributes_for :client_product_payments, :allow_destroy => true
+  accepts_nested_attributes_for :client_contact_means, allow_destroy: true
+  accepts_nested_attributes_for :client_references, allow_destroy: true
+  accepts_nested_attributes_for :client_collection_history, allow_destroy: true
+  accepts_nested_attributes_for :client_products, allow_destroy: true
+  accepts_nested_attributes_for :client_product_payments, allow_destroy: true
+  attr_accessor :full_name
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  # validates :first_name, presence: true
+  # validates :last_name, presence: true
   validates :document, presence: true
+
+  def self.full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 
   def full_name
     "#{self.first_name} #{self.last_name}"

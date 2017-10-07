@@ -45,8 +45,8 @@ class User < ApplicationRecord
 
   def set_default_role
     self.roles ||= []
-    role = Role.find_by(name: 'external_user') || 'external_user'
-    ap "ROLE => #{role} == #{roles.include? role}"
+    # role = Role.find_by(name: 'external_user') || 'external_user'
+    # ap "ROLE => #{role} == #{roles.include? role}"
     #self.roles << role unless roles.include? role
   end
 
