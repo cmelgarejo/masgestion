@@ -314,7 +314,7 @@ es:
         to: Hasta
     dashboard_welcome:
       welcome: Bienvenido al CRM de MasGestión
-      call_to_action: Porá observar distintas vistas de información aquí en el futuro
+      call_to_action: Podrá observar distintas vistas de información aquí en el futuro
     dashboard: Dashboard
     import: Importar
     upload: Subir archivo para importación

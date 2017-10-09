@@ -116,7 +116,7 @@ ActiveAdmin.register Client do
           @errors += "<span class='import_error_detail'>#{row}</span></br>"
         end
       end
-      redirect_to preview_admin_clients_path, alert: "#{I18n.t('Import_Success_first')} #{export.rows.length - 1} #{I18n.t('Import_Success_last')}"
+      redirect_to preview_admin_clients_path, alert: "#{I18n.t('Import_Success_first')} #{export.rows.length} #{I18n.t('Import_Success_last')}"
     end
   end
 
