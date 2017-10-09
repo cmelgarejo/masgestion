@@ -6,6 +6,10 @@ class ClientCollectionCategory < ApplicationRecord
     self.description
   end
 
+  def to_s
+    name
+  end
+
   def client_collection_category
     ClientCollectionCategory.all.map do |category|
       [category.description, category.id]

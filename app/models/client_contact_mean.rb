@@ -8,6 +8,10 @@ class ClientContactMean < ApplicationRecord
     self.contact_mean_type
   end
 
+  def to_s
+    name
+  end
+
   def contact_mean_type
     ContactMeanType.find(self.contact_mean_types_id).description
   end

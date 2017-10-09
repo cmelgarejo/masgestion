@@ -39,6 +39,12 @@ GIT
   specs:
 
 GIT
+  remote: https://github.com/codahale/bcrypt-ruby.git
+  revision: f2db689ba567d1a018f4dacb1ccf909adc93e887
+  specs:
+    bcrypt (3.1.11)
+
+GIT
   remote: https://github.com/vigetlabs/active_material
   revision: 853c60a22be2f6a57163a9d762da50c40e2061ec
   specs:
@@ -115,10 +121,9 @@ GEM
       activesupport (>= 3.0.0)
     arel (7.1.4)
     ast (2.3.0)
-    autoprefixer-rails (7.1.4.1)
+    autoprefixer-rails (7.1.5)
       execjs
     awesome_print (1.8.0)
-    bcrypt (3.1.11-x86-mingw32)
     better_errors (2.2.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -133,7 +138,7 @@ GEM
       uniform_notifier (~> 1.10.0)
     callsite (0.0.11)
     cancancan (2.0.0)
-    capybara (2.15.3)
+    capybara (2.15.4)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
@@ -488,6 +493,7 @@ DEPENDENCIES
   activeadmin_addons
   activeadmin_latlng!
   awesome_print
+  bcrypt!
   better_errors (= 2.2.0)
   bootstrap-sass
   bullet (= 5.5.1)

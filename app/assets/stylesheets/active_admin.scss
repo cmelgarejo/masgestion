@@ -185,3 +185,15 @@ body.edit > div > div > #sidebar {
 #gestiones > div > div > div > fieldset.inputs.has_many_fields {
   display: none;
 }
+
+table.index_table,
+.attributes_table > table {
+  font-size: smaller;
+}
+.panel_contents > table {
+  font-size: x-small;
+}
+
+.panel_contents > table > thead > tr > td {
+  text-align: center;
+}

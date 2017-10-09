@@ -11,6 +11,7 @@ class Client < ApplicationRecord
   has_many :client_collection_history
   has_many :client_products
   has_many :client_product_payments
+  has_many :client_imports
   accepts_nested_attributes_for :client_contact_means, allow_destroy: true
   accepts_nested_attributes_for :client_references, allow_destroy: true
   accepts_nested_attributes_for :client_collection_history, allow_destroy: true
@@ -24,6 +25,10 @@ class Client < ApplicationRecord
 
   def self.full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def to_s
+    full_name
   end
 
   def full_name

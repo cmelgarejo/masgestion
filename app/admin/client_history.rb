@@ -21,7 +21,7 @@ ActiveAdmin.register ClientCollectionHistory, as: 'ClientHistory' do
   filter :created_at
 
   index title: I18n.t('Client_Collection_History') do
-    selectable_column
+    # selectable_column
     column I18n.t('Name') do |resource|
       link_to resource.client.full_name, edit_admin_client_path(resource.client)
     end
@@ -36,4 +36,21 @@ ActiveAdmin.register ClientCollectionHistory, as: 'ClientHistory' do
     column :debt_collector
     column I18n.t('Updated_at'), :updated_at
   end
+
+  csv do
+    # column :id
+    column :client
+    column :history_type
+    column :client_contact_mean
+    column :client_collection_category
+    column :client_collection_type
+    column :client_product
+    column :promise_amount
+    column :promise_date
+    column :observations
+    column :debt_collector
+    column :created_at
+    column :updated_at
+  end
+
 end

@@ -1,4 +1,5 @@
 = form_for :preview, url: {action: 'preview'}, html: { multipart: true } do |f|
+  = @errors if(@errors != '')
   %table
     %tr
       %td

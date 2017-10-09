@@ -48,14 +48,18 @@ ActiveAdmin.register Campaign do
         end
       end
       tab I18n.t('Campaign_Details') do
-        table_for resource.campaign_details do |details|
-          ap resource.campaign_details
-          ap details
-          column I18n.t('Client'), :client_id
-          column I18n.t('User'), :user_id
-          column I18n.t('Observations'), :observations
-          column I18n.t('created_at'), :created_at
-          column I18n.t('updated_at'), :update_at
+        panel I18n.t('-') do
+          table_for resource.campaign_details, sortable: true, class: 'history_table' do |details|
+            column I18n.t('Client') do |resource|
+              Client.find(resource.client_id).full_name
+            end
+            column I18n.t('User') do |resource|
+              User.find(resource.user_id).name
+            end
+            column I18n.t('Observations'), :observations
+            column I18n.t('created_at'), :created_at
+            column I18n.t('updated_at'), :update_at
+          end
         end
       end
     end
@@ -74,16 +78,16 @@ ActiveAdmin.register Campaign do
       cancel_link
     end
     f.inputs I18n.t('Portfolio_Details') do
-      f.input :name, label: I18n.t('Name'), input_html: { autofocus: true }, required: true
+      f.input :name, label: I18n.t('Name'), input_html: {autofocus: true}, required: true
       f.input :portfolio_id, as: :select, collection: Portfolio.all, include_blank: false, input_html: {class: 'select2'} #TODO: limit scope by user in the future
       f.input :status, as: :select, collection: Campaign.statuses_for_select, include_blank: false, input_html: {class: 'select2'} #TODO: limit scope by user in the future
       if f.object.new_record?
-        f.input :start, as: :datepicker, label: I18n.t('Start'), input_html: { value: Date.today }
-        f.input :end, as: :datepicker, label: I18n.t('End'), input_html: { value: Date.today + 1 }
+        f.input :start, as: :datepicker, label: I18n.t('Start'), input_html: {value: Date.today}
+        f.input :end, as: :datepicker, label: I18n.t('End'), input_html: {value: Date.today + 1}
         f.input :active, label: I18n.t('Active'), input_html: {checked: true}
       else
-        f.input :start, as: :datepicker, label: I18n.t('Start'), datepicker_options: { min_date: Date.today }
-        f.input :end, as: :datepicker, label: I18n.t('End'), datepicker_options: { min_date: Date.today + 1 }
+        f.input :start, as: :datepicker, label: I18n.t('Start'), datepicker_options: {min_date: Date.today}
+        f.input :end, as: :datepicker, label: I18n.t('End'), datepicker_options: {min_date: Date.today + 1}
         f.input :active, label: I18n.t('Active')
       end
     end

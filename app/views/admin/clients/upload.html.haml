@@ -26,6 +26,8 @@
         %td
           - if col == 'document_type_id'
             = f.collection_select "client_#{col}", DocumentType.all, :id, :name
+          - elsif col == 'document'
+            = f.select "client_#{col}", @data.map {|d| [d, d] }, { include_blank: true }, { required: true }
           - else
             = f.select "client_#{col}", @data.map {|d| [d, d] }, include_blank: true
     %tr

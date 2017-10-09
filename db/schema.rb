@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 108) do
+ActiveRecord::Schema.define(version: 109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(version: 108) do
     t.datetime "updated_at",                           null: false
     t.index ["client_id"], name: "index_client_contact_means_on_client_id", using: :btree
     t.index ["contact_mean_types_id"], name: "index_client_contact_means_on_contact_mean_types_id", using: :btree
+  end
+
+  create_table "client_imports", force: :cascade do |t|
+    t.uuid     "client_id"
+    t.jsonb    "original_data"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["client_id"], name: "index_client_imports_on_client_id", using: :btree
   end
 
   create_table "client_product_payments", force: :cascade do |t|
@@ -326,6 +334,7 @@ ActiveRecord::Schema.define(version: 108) do
   add_foreign_key "client_collection_history", "users"
   add_foreign_key "client_contact_means", "clients"
   add_foreign_key "client_contact_means", "contact_mean_types", column: "contact_mean_types_id"
+  add_foreign_key "client_imports", "clients"
   add_foreign_key "client_product_payments", "client_products"
   add_foreign_key "client_product_payments", "clients"
   add_foreign_key "client_products", "clients"

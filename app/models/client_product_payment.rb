@@ -3,4 +3,8 @@ class ClientProductPayment  < ApplicationRecord
   belongs_to :client, optional: true
   belongs_to :client_product
 
+  def to_s
+    name
+  end
+
 end

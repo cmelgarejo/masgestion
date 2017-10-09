@@ -53,7 +53,7 @@ class User < ApplicationRecord
   def set_default_company
     self.company ||= Company.first
   end
-
+  
   def admin?
     self.my_roles.include? 'admin'
   end

@@ -121,7 +121,9 @@ es:
   Import_For_Campaign: Importar Registros a Gestionar
   Import_File: Archivo a importar
   Import_Preview: Vista previa
-  Import_Success: La importación ha sido exitosa!
+  Import_Success_first: La importación ha sido exitosa!
+  Import_Success_last: registros procesados.
+  Error_while_processing: 'Error ocurrido cuando se estaba procesando:'
   Import_Clients: Importar Clientes
   Import_Label: Selecciona el archivo a importar
   Contact_Type: Tipo de Contacto
@@ -183,6 +185,9 @@ es:
       contact_mean_type:
         one: Tipo de Contacto
         other: Tipos de Contacto
+      client_collection_category:
+        one: Acción
+        other: Acciones
       client_collection_categories:
         one: Acción
         other: Acciones
@@ -193,6 +198,16 @@ es:
         document_type_id: Tipo de documento
         first_name: Nombres
         last_name: Apellidos
+        client_collection_category: Acción
+        client_collection_history_observations: Observaciones
+        client_collection_history_updated_at: Fecha de ultima gestión
+        client_collection_history_promise_date: Fecha de Promesa
+        client_collection_history_promise_amount: Monto de promesa
+        client_collection_history_history_type_id: Tipo de Gestión
+        client_collection_history_user_id: Usuario gestionante
+        client_collection_history_client_collection_category_id: Acción
+        client_contact_means_target: Medio de Contacto
+        target: Medio de Contacto
         active: Activo
         birthdate: Fecha de Nacimiento
         address: Dirección
@@ -339,4 +354,10 @@ es:
             other: 'Se han destruido %{count} Entidades con éxito'
       portfolio:
         name: Portfolio
-
+  views:
+    pagination:
+      truncate: ...
+      previous: '<'
+      next: '>'
+      first: '<<'
+      last: '>>'

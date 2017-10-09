@@ -9,7 +9,7 @@ gem 'haml'
 gem 'puma', '~> 3.9.1'
 gem 'money'
 gem 'redis'
-gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
+gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', require: 'bcrypt'
 gem 'devise'
 #gem 'pundit'
 gem 'rqrcode'
@@ -24,7 +24,7 @@ gem 'rails-i18n'
 gem 'devise-i18n'
 gem 'redis-rails'
 gem 'simple_form'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :jruby]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :jruby, :x64_mingw]
 gem 'remote_table'
 gem 'roo-xls'
 gem 'high_voltage'
@@ -33,7 +33,7 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'simple_command'
 gem 'file_validators'
-gem 'active_admin_import' , git: 'https://github.com/activeadmin-plugins/active_admin_import'
+gem 'active_admin_import', git: 'https://github.com/activeadmin-plugins/active_admin_import'
 # gem 'activeadmin-axlsx'
 
 gem 'carrierwave'
@@ -52,7 +52,7 @@ gem 'activeadmin' #git: 'https://github.com/activeadmin/activeadmin'
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
 gem 'active_material', git: 'https://github.com/vigetlabs/active_material'
 gem 'activeadmin_addons'
-gem 'select2-rails'#, '~> 4.0', '>= 4.0.3'
+gem 'select2-rails' #, '~> 4.0', '>= 4.0.3'
 gem 'activeadmin_latlng', git: 'https://github.com/cmelgarejo/activeadmin-latlng'
 #gem 'cocoon'
 gem 'activeadmin-ajax_filter'
@@ -67,7 +67,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary' if !Gem.win_platform?
 gem 'wkhtmltopdf-heroku' if !Gem.win_platform?
 
-gem 'awesome_print', require:'ap'
+gem 'awesome_print', require: 'ap'
 
 group :development, :test do
   #gem 'binding_of_caller' #Heavy gem!

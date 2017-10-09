@@ -5,4 +5,8 @@ class ContactMeanType < ApplicationRecord
   def name
     self.description
   end
+
+  def to_s
+    name
+  end
 end

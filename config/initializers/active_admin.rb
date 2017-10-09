@@ -285,7 +285,7 @@ ActiveAdmin.setup do |config|
   # By default, the footer shows the current Active Admin version. You can
   # override the content of the footer here.
   #
-  config.footer = "#{config.site_title} 2017"
+  config.footer = "#{config.site_title} #{Date.today.year}"
 
   # == Sorting
   #

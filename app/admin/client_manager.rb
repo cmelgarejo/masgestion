@@ -64,68 +64,96 @@ ActiveAdmin.register Client do
     #   }
     # end
     if file_path
+      @errors = ''
+      CampaignDetail.where(campaign: campaign).delete_all
       export = RemoteTable.new file_path
       export.rows.each do |row|
-        k_first_name = upload_params[:client_first_name]
-        k_last_name = upload_params[:client_last_name]
-        k_document = upload_params[:client_document]
-        k_birthdate = upload_params[:client_birthdate]
-        k_address = upload_params[:client_address]
-        k_country = upload_params[:client_country]
-        k_state = upload_params[:client_state]
-        k_city = upload_params[:client_city]
-        k_lat = upload_params[:client_lat]
-        k_lng = upload_params[:client_lng]
-        k_ref_code = upload_params[:client_ref_code]
-        first_name = row[k_first_name].to_s.strip
-        last_name = row[k_last_name].to_s.strip
-        document = row[k_document].to_s.strip.gsub(/\.0*$/, '')
-        birthdate = row[k_birthdate].to_s.strip
-        address = row[k_address].to_s.strip
-        country = row[k_country].to_s.strip
-        state = row[k_state].to_s.strip
-        city = row[k_city].to_s.strip
-        lat = row[k_lat]
-        lng = row[k_lng]
-        ref_code = row[k_ref_code].to_s.strip
-        client = Client.where(document_type: document_type, document: document)
-        if Client.exists? client
-          client = client.first
-          Client.update client.id, first_name: first_name, last_name: last_name, document_type: document_type, document: document.to_s.strip, address: address,
-                        birthdate: birthdate, country: country, state: state, city: city, lat: lat, lng: lng, ref_code: ref_code, original_data: row
-        else
-          client = Client.create! first_name: first_name, last_name: last_name, document_type: document_type, document: document, address: address,
-                                  birthdate: birthdate, country: country, state: state, city: city, lat: lat, lng: lng, ref_code: ref_code, original_data: row
+        begin
+          k_first_name = upload_params[:client_first_name]
+          k_last_name = upload_params[:client_last_name]
+          k_document = upload_params[:client_document]
+          k_birthdate = upload_params[:client_birthdate]
+          k_address = upload_params[:client_address]
+          k_country = upload_params[:client_country]
+          k_state = upload_params[:client_state]
+          k_city = upload_params[:client_city]
+          k_lat = upload_params[:client_lat]
+          k_lng = upload_params[:client_lng]
+          k_ref_code = upload_params[:client_ref_code]
+          first_name = row[k_first_name].to_s.strip
+          last_name = row[k_last_name].to_s.strip
+          document = row[k_document].to_s.strip.gsub(/\.0*$/, '')
+          birthdate = row[k_birthdate].to_s.strip
+          address = row[k_address].to_s.strip
+          country = row[k_country].to_s.strip
+          state = row[k_state].to_s.strip
+          city = row[k_city].to_s.strip
+          lat = row[k_lat]
+          lng = row[k_lng]
+          ref_code = row[k_ref_code].to_s.strip
+          client = Client.where(document_type: document_type, document: document)
+          if Client.exists? client
+            client = client.first
+            Client.update client.id, first_name: first_name, last_name: last_name, document_type: document_type, document: document.to_s.strip, address: address,
+                          birthdate: birthdate, country: country, state: state, city: city, lat: lat, lng: lng, ref_code: ref_code, original_data: row
+          else
+            client = Client.create! first_name: first_name, last_name: last_name, document_type: document_type, document: document, address: address,
+                                    birthdate: birthdate, country: country, state: state, city: city, lat: lat, lng: lng, ref_code: ref_code, original_data: row
+          end
+          if client.valid?
+            ClientImport.create! client: client, original_data: row
+            upload_params.select {|k| k[/contact_.*/]}.each do |contact_type_selected|
+              contact_mean_type = ContactMeanType.find(contact_type_selected.gsub('contact_', '').to_i)
+              k_contact_type = upload_params[contact_type_selected]
+              target = row[k_contact_type].to_s.strip.gsub(/\.0*$/, '')
+              ClientContactMean.create! client_id: client.id, contact_mean_types_id: contact_mean_type.id, target: target if target && target != ''
+            end
+            CampaignDetail.create! campaign: campaign, client_id: client.id, user_id: agents.sample.id
+          end
+        rescue => e
+          @errors += "<span class='import_error_header'>#{I18n.t('Error_while_processing')}</span></br>"
+          @errors += "<span class='import_error_message'>#{e.to_s} - #{I18n.t('Error_while_processing')}</span></br>"
+          @errors += "<span class='import_error_detail'>#{row}</span></br>"
         end
-        upload_params.select {|k| k[/contact_.*/]}.each do |contact_type_selected|
-          contact_mean_type = ContactMeanType.find(contact_type_selected.gsub('contact_', '').to_i)
-          k_contact_type = upload_params[contact_type_selected]
-          target = row[k_contact_type].to_s.strip.gsub(/\.0*$/, '')
-          ClientContactMean.create! client_id: client.id, contact_mean_types_id: contact_mean_type.id, target: target if target && target != ''
-        end
-        CampaignDetail.create! campaign: campaign, client_id: client.id, user_id: agents.sample.id
       end
-      redirect_to preview_admin_clients_path, alert: "#{I18n.t('Import_Success')}"
+      redirect_to preview_admin_clients_path, alert: "#{I18n.t('Import_Success_first')} #{export.rows.length - 1} #{I18n.t('Import_Success_last')}"
     end
   end
 
 
+  filter :client_collection_history_user_id, as: :select, collection: User.all, if: proc {current_user.admin?}
+
   filter :document_type
   filter :document
   filter :full_name
-  filter :birthdate
-  filter :active
+  filter :client_collection_history_client_collection_category_id, as: :select, collection: ClientCollectionCategory.all
+  filter :client_collection_history_observations, as: :string
+  filter :client_collection_history_updated_at, as: :date_range
+  filter :client_collection_history_history_type_id, as: :select, collection: HistoryType.all
+  filter :client_collection_history_promise_date, as: :date_range, start_date: Date.today, end_date: Date.today + 30
+  filter :client_collection_history_promise_amount, as: :numeric
+  filter :client_contact_means_target, as: :string
+  # filter :birthdate
+  # filter :active
   # filter :created_at
   # filter :updated_at
 
   index title: I18n.t('Client_Manager') do
-    selectable_column
+    # selectable_column
     # id_column
     column I18n.t('Name') do |resource|
       link_to resource.full_name, edit_admin_client_path(resource)
     end
-    column I18n.t('Created_at'), :created_at
-    column I18n.t('Updated_at'), :updated_at
+    column I18n.t('Document_Type'), :document_type
+    column I18n.t('Document'), :document
+    column I18n.t('Address') do |resource|
+      state = resource.country && resource.country != '' ? CountryStateSelect.collect_states(resource.country).select {|state| state.last.to_s == resource.state}.last.first : nil
+      country = resource.country && resource.country != '' ? CountryStateSelect.countries_collection.select {|country| country.last.to_s == resource.country}.last.first : nil
+      address = "#{resource.address}, #{resource.city}, #{state}, #{country}"
+      address == ', , , ' ? '' : address
+    end
+    # column I18n.t('Created_at'), :created_at
+    # column I18n.t('Updated_at'), :updated_at
 
     actions
   end
@@ -194,7 +222,7 @@ ActiveAdmin.register Client do
           end
           table_for resource.client_collection_history.order(
               (params[:order] ? params[:order] : 'created_at_desc').gsub('_asc', ' asc').gsub('_desc', ' desc')
-          ), sortable: true do
+          ), sortable: true, class: 'history_table' do
             column(:history_type, sortable: :history_type_id) {|r| r.history_type}
             column(:client_contact_mean, sortable: :client_contact_mean_id) {|r| ClientContactMean.find(r.client_contact_mean_id) if r.client_contact_mean_id}
             column(:client_collection_category, sortable: :client_collection_category_id) {|r| r.client_collection_category}
