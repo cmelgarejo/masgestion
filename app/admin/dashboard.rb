@@ -20,6 +20,7 @@ ActiveAdmin.register_page 'Dashboard' do
       end
     end
   end
+
 end
 #   section "#{t('recently_updated_content')} - #{t('last_20_items')}" do
 #     table_for PaperTrail::Version.order('id desc').limit(20) , class: 'table table-responsive table-stripped' do # Use PaperTrail::Version if this throws an error

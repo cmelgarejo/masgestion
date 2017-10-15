@@ -35,6 +35,7 @@ gem 'simple_command'
 gem 'file_validators'
 gem 'active_admin_import', git: 'https://github.com/activeadmin-plugins/active_admin_import'
 # gem 'activeadmin-axlsx'
+gem 'chartkick'
 
 gem 'carrierwave'
 #gem 'carrierwave-base64'

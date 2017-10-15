@@ -1,4 +1,5 @@
 ActiveAdmin.setup do |config|
+  config.register_javascript 'https://www.google.com/jsapi'
   # == Site Title
   #
   # Set the title that is displayed on the main layout
