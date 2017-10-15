@@ -76,6 +76,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_median (0.1.4)
+      activerecord
     activeadmin (1.1.0)
       arbre (>= 1.1.1)
       coffee-rails
@@ -209,6 +211,8 @@ GEM
     formtastic_i18n (0.6.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    groupdate (3.2.0)
+      activesupport (>= 3)
     haml (5.0.3)
       temple (>= 0.8.0)
       tilt
@@ -219,6 +223,8 @@ GEM
       murmurhash3
     high_voltage (3.0.0)
     highline (1.7.8)
+    hightop (0.2.0)
+      activerecord
     hirb (0.7.3)
     hirb-unicode (0.0.5)
       hirb (~> 0.5)
@@ -489,6 +495,7 @@ PLATFORMS
 DEPENDENCIES
   active_admin_import!
   active_material!
+  active_median
   activeadmin
   activeadmin-ajax_filter
   activeadmin_addons
@@ -514,8 +521,10 @@ DEPENDENCIES
   faker
   file_validators
   formadmin
+  groupdate
   haml
   high_voltage
+  hightop
   hirb
   hirb-unicode
   html_routes
@@ -564,4 +573,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

@@ -36,6 +36,10 @@ gem 'file_validators'
 gem 'active_admin_import', git: 'https://github.com/activeadmin-plugins/active_admin_import'
 # gem 'activeadmin-axlsx'
 gem 'chartkick'
+gem 'groupdate'
+gem 'hightop'
+gem 'active_median' #rails g migration create_median_function
+
 
 gem 'carrierwave'
 #gem 'carrierwave-base64'

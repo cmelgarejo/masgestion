@@ -7,20 +7,35 @@ ActiveAdmin.register_page 'Dashboard' do
   # end
 
   content title: proc {I18n.t('active_admin.dashboard')} do
-    #   if current_user.try(:admin?)
-    #     # action_item :view, only: :show do
-    #     #   link_to 'Importar', admin_dashboard_path(post) if post.published?
-    #     # end
-    #   else
-    div class: 'blank_slate_container', id: 'dashboard_default_message' do
-      span class: 'blank_slate' do
-        span I18n.t('active_admin.dashboard_welcome.welcome')
-        small I18n.t('active_admin.dashboard_welcome.call_to_action')
-        h1 link_to I18n.t('client_manager_call_to_action'), admin_clients_path
+    if current_user.try(:admin?)
+
+      columns do
+        column do
+          panel I18n.t('Recent_Clients') do
+            ul do
+              Client.last(5).map do |client|
+                li link_to(client.full_name, edit_admin_client_path(client))
+              end
+            end
+          end
+        end
+        column do
+          panel "Info" do
+            para "Welcome to ActiveAdmin."
+            render 'charts_clients'
+          end
+        end
+      end
+    else
+      div class: 'blank_slate_container', id: 'dashboard_default_message' do
+        span class: 'blank_slate' do
+          span I18n.t('active_admin.dashboard_welcome.welcome')
+          small I18n.t('active_admin.dashboard_welcome.call_to_action')
+          h1 link_to I18n.t('client_manager_call_to_action'), admin_clients_path
+        end
       end
     end
   end
-
 end
 #   section "#{t('recently_updated_content')} - #{t('last_20_items')}" do
 #     table_for PaperTrail::Version.order('id desc').limit(20) , class: 'table table-responsive table-stripped' do # Use PaperTrail::Version if this throws an error
