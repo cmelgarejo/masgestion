@@ -1,5 +1,6 @@
 es:
   -: ''
+  Graphs: Gráficos
   upload_import_fields: Campos para Importación
   upload_import_contact_fields: Contactos
   client_manager_call_to_action: Haga click aquí para ingresar Gestiones
@@ -33,8 +34,9 @@ es:
   Companies: Entidades
   History_Type: Tipo de Gestión
   History_Type_Details: Detalles del tipo de Gestión
-  Contact_Mean_Type: Tipo de contacto
-  Contact_Mean_Type_Details: Detalles del tipo de contacto
+  Contact_Mean_Type: Medios de contacto
+  Contact_Mean_Type_Details: Detalles del medio de contacto
+  Category_Action_Details: Detalles del tipo de acción
   Client_Collection_Categories: Tipo de Gestión
   Client_Collection_Categories_Details: Detalles del tipo de Gestión
   Company_Product: Productos
@@ -111,12 +113,15 @@ es:
   category_details: Detalles de Categoría
   created_at: Fecha de Creación
   updated_at: Fecha de Actualización
-  Contact_Mean_Type: Tipo de contacto
+  Contact_Mean_Type: Medio de contacto
   Client_Contact_Means: Contactos
   Target: Contacto
   Client_Products: Productos
   History_Type: Tipo de Gestión
   Category_Action: Acción
+  Category_Action_Types: Tipos de Acción
+  Client_Collection_Types: Tipos de Contacto
+  Client_Collection_Category_Details: Detalles del tipo de contacto
   Import_Excel: Importar Excel
   Import: Importar
   Import_For_Campaign: Importar Registros a Gestionar
@@ -172,8 +177,8 @@ es:
         one: Histórico
         other: Históricos
       client_contact_mean:
-        one: Contacto
-        other: Contactos
+        one: Medio de contacto
+        other: Medios de contacto
       client_product:
         one: Producto
         other: Productos
@@ -183,12 +188,18 @@ es:
       history_type:
         one: Tipo de Gestión
         other: Tipos de Gestión
+      document_type:
+        one: Tipo de documento
+        other: Tipos de documento
       contact_mean_type:
-        one: Tipo de Contacto
-        other: Tipos de Contacto
+        one: Medio de contacto
+        other: Medio de contacto
       client_collection_category:
         one: Acción
         other: Acciones
+      client_collection_type:
+        one: Tipo de Contacto
+        other: Tipos de Contacto
       client_collection_categories:
         one: Acción
         other: Acciones
@@ -282,6 +293,10 @@ es:
             campaign_admin: Administrador de Campaña
             campaign_user: Usuario de campaña o Agente
             external_user: Usuario Externo (de Entidad)
+      document_type:
+        description: Descripción
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
       history_type:
         description: Descripción
         created_at: Fecha de Creación

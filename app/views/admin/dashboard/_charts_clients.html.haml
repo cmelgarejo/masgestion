@@ -1,3 +1,13 @@
 <script>Chartkick.configure({language: 'es'});</script>
-= column_chart [["2016-01-01", 30], ["2016-02-01", 54]], stacked: true, library: {colors: ["#D80A5B", "#21C8A9", "#F39C12", "#A4C400"]}
-= line_chart Client.group_by_month(:created_at).count
+=# column_chart [["2016-01-01", 30], ["2016-02-01", 54]], stacked: true, library: {colors: ["#D80A5B", "#21C8A9", "#F39C12", "#A4C400"]}
+=# line_chart Client.group_by_month(:created_at).count
+= pie_chart ClientCollectionHistory.group(:history_type).count
+= pie_chart ClientCollectionHistory.group(:history_type).sum(:promise_amount)
+= column_chart ClientCollectionHistory.group(:history_type).sum(:promise_amount)
+= bar_chart ClientCollectionHistory.group(:history_type).sum(:promise_amount)
+= column_chart Client.group_by_hour_of_day(:created_at, format: "%l %P").count
+= area_chart ClientCollectionHistory.group(:history_type).sum(:promise_amount)
+=# bar_chart Client.group(:created_at).sum(:price)
+=# area_chart Client.group_by_minute(:created_at).maximum(:load_time)
+= timeline [["Washington", "1789-04-29", "1797-03-03"],["Adams", "1797-03-03", "1801-03-03"],["Jefferson", "1801-03-03", "1809-03-03"]]
+=#line_chart @goals.map { |goal| {name: goal.name, data: goal.feats.group_by_week(:created_at).count}}

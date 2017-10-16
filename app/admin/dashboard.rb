@@ -20,8 +20,8 @@ ActiveAdmin.register_page 'Dashboard' do
           end
         end
         column do
-          panel "Info" do
-            para "Welcome to ActiveAdmin."
+          panel I18n.t('Graphs') do
+            #para "Welcome to ActiveAdmin."
             render 'charts_clients'
           end
         end
