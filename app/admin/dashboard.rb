@@ -8,21 +8,15 @@ ActiveAdmin.register_page 'Dashboard' do
 
   content title: proc {I18n.t('active_admin.dashboard')} do
     if current_user.try(:admin?)
-
       columns do
         column do
-          panel I18n.t('Recent_Clients') do
-            ul do
-              Client.last(5).map do |client|
-                li link_to(client.full_name, edit_admin_client_path(client))
-              end
-            end
+          panel I18n.t('chart_cch_history_type') do
+            render 'chart_cch_history_type'
           end
         end
         column do
-          panel I18n.t('Graphs') do
-            #para "Welcome to ActiveAdmin."
-            render 'charts_clients'
+          panel I18n.t('chart_cch_history_type_promise_amount') do
+            render 'chart_cch_history_type_promise_amount'
           end
         end
       end
@@ -32,6 +26,42 @@ ActiveAdmin.register_page 'Dashboard' do
           span I18n.t('active_admin.dashboard_welcome.welcome')
           small I18n.t('active_admin.dashboard_welcome.call_to_action')
           h1 link_to I18n.t('client_manager_call_to_action'), admin_clients_path
+        end
+      end
+    end
+    columns do
+      column do
+        panel I18n.t('Recent_Clients') do
+          ul do
+            if current_user.try(:admin?)
+              Client.last(20).map do |client|
+                li link_to(client.full_name, edit_admin_client_path(client))
+              end
+            else
+              CampaignDetail.where(user_id: current_user.id).last(20).map do |cd|
+                client = Client.find(cd.client_id)
+                li link_to(client.full_name, edit_admin_client_path(client))
+              end
+            end
+          end
+        end
+      end
+      column do
+        panel I18n.t('Clients_Without_History') do
+          ul do
+            if current_user.try(:admin?)
+              Client.last(20).map do |client|
+                li link_to(client.full_name, edit_admin_client_path(client))
+              end
+            else
+              CampaignDetail.where(user_id: current_user.id).map do |cd|
+                client = Client.find(cd.client_id)
+                if client.client_collection_history.count < 1
+                  li link_to(client.full_name, edit_admin_client_path(client))
+                end
+              end
+            end
+          end
         end
       end
     end

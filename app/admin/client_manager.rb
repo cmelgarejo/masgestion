@@ -18,7 +18,7 @@ ActiveAdmin.register Client do
                                              :observations],
                 client_references_attributes: [:id, :client_id, :first_name, :last_name, :phone, :observations]
 
-  menu parent: "#{I18n.t('People')}", priority: 3, label: I18n.t('Client_Manager')
+  menu parent: "#{I18n.t('People')}", priority: 0, label: I18n.t('Client_Manager')
   # scope_to do
   #   Client.where('user _id = ?', current_user.id)
   # end
@@ -28,12 +28,12 @@ ActiveAdmin.register Client do
     link_to I18n.t('Import_For_Campaign'), action: :preview if current_user.admin?
   end
 
-  collection_action :preview do
-    render 'admin/clients/preview'
+  collection_action :preview, title: I18n.t('Preview_Title') do
+    render 'admin/clients/preview' if current_user.admin?
   end
 
-  collection_action :upload do
-    render 'admin/clients/upload'
+  collection_action :upload, title: I18n.t('Updated_at') do
+    render 'admin/clients/upload' if current_user.admin?
   end
 
   collection_action :preview, method: :post do
@@ -122,7 +122,8 @@ ActiveAdmin.register Client do
 
 
   filter :client_collection_history_user_id, as: :select, collection: User.all, if: proc {current_user.admin?}
-
+  filter :campaign_details_campaign_id, as: :select, collection: Campaign.where(active: true), if: proc {current_user.admin?}
+  #filter :campaign_details_campaign_id, as: :select, collection: proc {Campaign.user_campaigns(current_user.id)}
   filter :document_type
   filter :document
   filter :full_name
@@ -138,8 +139,61 @@ ActiveAdmin.register Client do
   # filter :created_at
   # filter :updated_at
 
+  # batch_action :flag do |ids|
+  #   batch_action_collection.find(ids).each do |resource|
+  #     resource.flag! :hot
+  #   end
+  #   redirect_to collection_path, alert: "The posts have been flagged."
+  # end
+
+  controller do
+    before_action :set_per_page_var, :only => [:index]
+
+    def set_per_page_var
+      session[:per_page]=params[:per_page]||30
+      @per_page = session[:per_page]
+    end
+  end
+
+  sidebar(I18n.t('rows_on_page'), only: :index) do
+    form do |f|
+      f.text_field nil, 'per_page', value: session[:per_page]
+    end
+  end
+
+  batch_action :"#{I18n.t('assign_campaign')}", if: proc {current_user.admin?}, form: {
+      campaign: Campaign.where(active: true).map {|e| [e.name, e.id]},
+      agent: (UserRole.where role: Role.where(name: 'campaign_user').first).select {|ur| ur.user}.map {|e| [User.find(e.user_id).name, e.user_id]} << ['','']
+  } do |ids, inputs|
+    total_assignments = 0
+    total_errors = 0
+    agents = (UserRole.where role: Role.where(name: 'campaign_user').first).select {|ur| ur.user}.map &:user
+    ids.each do |id|
+      begin
+        CampaignDetail.create! client_id: id, campaign_id: inputs[:campaign], user_id: inputs[:agent] === '' ? agents.sample.id : inputs[:agent]
+        total_assignments += 1
+      rescue => e
+        total_errors += 1
+      end
+    end
+    # inputs is a hash of all the form fields you requested
+    message = "#{total_assignments} #{I18n.t('Import_Success_last')} #{I18n.t('Import_Errors')}: #{total_errors}"
+    redirect_to collection_path, notice: message
+  end
+
+  # batch_action :"#{I18n.t('create_campaign')}", if: proc {current_user.admin?}, form: {
+  #     name: :text,
+  #     portfolio: Portfolio.where(active: true).map {|e| [e.name, e.id]},
+  #     status: [:planned, :started, :completed, :on_hold, :called_off],
+  #     campaign_start: :datepicker,
+  #     campaign_end: :datepicker
+  # } do |ids, inputs|
+  #   # inputs is a hash of all the form fields you requested
+  #   redirect_to collection_path, notice: [ids, inputs].to_s
+  # end
+
   index title: I18n.t('Client_Manager') do
-    # selectable_column
+    selectable_column
     # id_column
     column I18n.t('Name') do |resource|
       link_to resource.full_name, edit_admin_client_path(resource)

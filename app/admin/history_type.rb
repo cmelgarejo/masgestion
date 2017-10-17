@@ -1,7 +1,7 @@
 ActiveAdmin.register HistoryType do
   permit_params :description #, :active
   actions :all, except: [:show]
-  menu parent: I18n.t('Configuration'), priority: 1, label: I18n.t('History_Type')
+  menu parent: I18n.t('Configuration'), priority: 2, label: I18n.t('History_Type')
 
   index title: I18n.t('History_Type') do
     column I18n.t('Description') do |resource|

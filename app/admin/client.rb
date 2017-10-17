@@ -1,4 +1,6 @@
 ActiveAdmin.register Client, as: 'ClientManager' do
+  actions :all, except: [:destroy]
+
   permit_params :first_name, :last_name, :document_type_id, :company_id, :document,
                 :birthdate, :address, :country, :state, :city, :lat, :lng, :active,
                 #Contact means
@@ -15,13 +17,13 @@ ActiveAdmin.register Client, as: 'ClientManager' do
                 client_references_attributes: [:id, :client_id, :first_name, :last_name, :phone, :observations,
                                                :_destroy]
 
-  menu if: proc {current_user.admin?}, parent: I18n.t('People'), priority: 3, label: I18n.t('Clients')
+  menu if: proc {current_user.admin?}, parent: I18n.t('People'), priority: 99, label: I18n.t('Clients_Total_List')
 
   index title: I18n.t('Clients') do
     selectable_column
     #id_column
     column I18n.t('Name') do |resource|
-      link_to resource.full_name, admin_client_path(resource)
+      link_to resource.full_name, admin_client_manager_path(resource)
     end
     #column I18n.t('Reference_Code'), :ref_code
     column I18n.t('Document_Type'), :document_type

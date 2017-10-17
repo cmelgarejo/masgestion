@@ -1,6 +1,13 @@
 es:
   -: ''
+  Order: Orden
+  order: orden
+  rows_on_page: Registros por página
+  assign_campaign: Asignar campaña a
+  create_campaign: Crear nueva campaña para
   Graphs: Gráficos
+  chart_cch_history_type: Tipo de Gestión
+  chart_cch_history_type_promise_amount: Montos comprometidos por tipos de gestión
   upload_import_fields: Campos para Importación
   upload_import_contact_fields: Contactos
   client_manager_call_to_action: Haga click aquí para ingresar Gestiones
@@ -30,15 +37,17 @@ es:
   Configuration: Configuraciones
   People: Personas
   Clients: Clientes
+  Clients_Total_List: Lista completa de personas
   Recent_Clients: Clientes recientemente creados
+  Clients_Without_History: Clientes sin gestión
   Companies: Entidades
   History_Type: Tipo de Gestión
   History_Type_Details: Detalles del tipo de Gestión
   Contact_Mean_Type: Medios de contacto
   Contact_Mean_Type_Details: Detalles del medio de contacto
   Category_Action_Details: Detalles del tipo de acción
-  Client_Collection_Categories: Tipo de Gestión
-  Client_Collection_Categories_Details: Detalles del tipo de Gestión
+  Client_Collection_Categories: Acción de Gestión
+  Client_Collection_Categories_Details: Detalles del acción de Gestión
   Company_Product: Productos
   Company_Products: Productos
   Company_Products_Type: Tipo de Producto
@@ -55,8 +64,8 @@ es:
   Color_Reference: Color de Referencia
   Client_References: Referencias
   Client_Collection_History: Gestiones
-  Client_History: Gestiones
-  Client_Manager: Clientes a gestionar
+  Client_History: Histórico de gestiones
+  Client_Manager: Personas a gestionar
   Value: Monto
   Payment_Date: Fecha de Pago
   Last_Payment_Date: Fecha Último Pago
@@ -68,6 +77,7 @@ es:
   Phone: Teléfono
   Document: Documento
   Document_Type: Tipo de documento
+  Document_Types: Tipos de documento
   Location: Ubicación
   Latitude: Latitud
   Longitude: Longitud
@@ -79,6 +89,7 @@ es:
   Categories: Categorias
   Created_at: Creado
   Updated_at: Actualizado
+  Upload: Importar coleccion
   Download: Descargar
   save: Guardar
   cancel: Cancelar
@@ -113,7 +124,7 @@ es:
   category_details: Detalles de Categoría
   created_at: Fecha de Creación
   updated_at: Fecha de Actualización
-  Contact_Mean_Type: Medio de contacto
+  Contact_Mean_Type: Medios de contacto
   Client_Contact_Means: Contactos
   Target: Contacto
   Client_Products: Productos
@@ -127,8 +138,10 @@ es:
   Import_For_Campaign: Importar Registros a Gestionar
   Import_File: Archivo a importar
   Import_Preview: Vista previa
+  Preview_Title: Importacion de Registros de Personas
   Import_Success_first: La importación ha sido exitosa!
   Import_Success_last: registros procesados.
+  Import_Errors: errores
   Error_while_processing: 'Error ocurrido cuando se estaba procesando:'
   Import_Clients: Importar Clientes
   Import_Label: Selecciona el archivo a importar
@@ -145,6 +158,9 @@ es:
         first_name: hell
   activerecord:
     models:
+      campaign_detail:
+        one: Detalle de campaña
+        other: Detalles de campaña
       preview:
         one: Vista Previa
         other: Vista Previa
@@ -211,6 +227,7 @@ es:
         first_name: Nombres
         last_name: Apellidos
         client_collection_category: Acción
+        campaign_details_campaign_id: Campaña
         client_collection_history_observations: Observaciones
         client_collection_history_updated_at: Fecha de ultima gestión
         client_collection_history_promise_date: Fecha de Promesa
@@ -320,6 +337,12 @@ es:
         name: Archivo
       portfolio:
         company_id: Entidad
+      campaign_detail:
+        campaign: Campaña
+        observations: Observaciones
+        order: Orden
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
   errors:
     messages:
       extension_whitelist_error: Formato no permitido
@@ -370,6 +393,8 @@ es:
             other: 'Se han destruido %{count} Entidades con éxito'
       portfolio:
         name: Portfolio
+      preview:
+        name: Importacion de Registros de Personas
   views:
     pagination:
       truncate: ...

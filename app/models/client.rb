@@ -12,6 +12,7 @@ class Client < ApplicationRecord
   has_many :client_products
   has_many :client_product_payments
   has_many :client_imports
+  has_many :campaign_details
   accepts_nested_attributes_for :client_contact_means, allow_destroy: true
   accepts_nested_attributes_for :client_references, allow_destroy: true
   accepts_nested_attributes_for :client_collection_history, allow_destroy: true

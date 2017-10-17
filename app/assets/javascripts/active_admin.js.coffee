@@ -18,7 +18,7 @@ $(document).ready ->
     $('.color-reference-select').css('background-color', color).css('color', color)
 
   $('.color-picker').paletteColorPicker()
-  $( ".select2" ).select2({theme: "bootstrap"}) #if window.location.pathname.match(/(client.*\/\/edit|users\/.*\/edit|client.*\/new|client.*\/new)/)
+  $( ".select2" ).select2() #if window.location.pathname.match(/(client.*\/\/edit|users\/.*\/edit|client.*\/new|client.*\/new)/)
 
   if window.location.pathname.match(/.*clients.*\/edit/)
     $('li[id^="client_client_collection_history_attributes_"][class^=hidden]').remove()

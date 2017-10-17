@@ -10,19 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 110) do
+ActiveRecord::Schema.define(version: 111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "campaign_details", id: false, force: :cascade do |t|
+  create_table "campaign_details", force: :cascade do |t|
     t.uuid     "campaign_id"
     t.uuid     "client_id"
     t.integer  "user_id"
     t.text     "observations"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "order",        default: 0
+    t.index ["campaign_id", "client_id", "user_id"], name: "index_campaign_details_on_campaign_id_and_client_id_and_user_id", unique: true, using: :btree
     t.index ["campaign_id"], name: "index_campaign_details_on_campaign_id", using: :btree
     t.index ["client_id"], name: "index_campaign_details_on_client_id", using: :btree
     t.index ["user_id"], name: "index_campaign_details_on_user_id", using: :btree

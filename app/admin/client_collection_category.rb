@@ -1,7 +1,7 @@
 ActiveAdmin.register ClientCollectionCategory do
   permit_params :description #, :active
   actions :all, except: [:show]
-  menu parent: I18n.t('Configuration'), priority: 1, label: I18n.t('Client_Collection_Categories')
+  menu parent: I18n.t('Configuration'), priority: 2, label: I18n.t('Client_Collection_Categories')
 
   index title: I18n.t('Client_Collection_Categories') do
     column I18n.t('Description') do |resource|

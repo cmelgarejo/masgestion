@@ -1,19 +1,21 @@
 ActiveAdmin.register Campaign do
   permit_params :name, :active, :status, :portfolio_id, :start, :end
-
-  menu parent: I18n.t('Companies'), priority: 4, label: I18n.t('Campaign')
+  actions :all, except: [:show]
+  menu parent: I18n.t('Companies'), priority: 4, label: I18n.t('Campaigns')
 
   index title: I18n.t('Campaigns') do
     selectable_column
     #id_column
     column I18n.t('Name') do |resource|
-      link_to resource.name, admin_campaign_path(resource)
+      link_to resource.name, edit_admin_campaign_path(resource)
     end
 
     bool_column I18n.t('Active'), :active
     column I18n.t('Start'), :start
     column I18n.t('End'), :end
-    column I18n.t('Status'), :status
+    column I18n.t('Status') do |resource|
+      "#{I18n.t("activerecord.attributes.campaign.i18n.status.#{resource.status}")}"
+    end
     column I18n.t('Portfolio'), :portfolio
     column I18n.t('Created_at'), :created_at
     column I18n.t('Updated_at'), :updated_at
@@ -67,6 +69,7 @@ ActiveAdmin.register Campaign do
   end
 
   filter :name
+  filter :company
   filter :active
   filter :created_at
   filter :updated_at
@@ -77,7 +80,7 @@ ActiveAdmin.register Campaign do
       f.action :submit, label: I18n.t('save')
       cancel_link
     end
-    f.inputs I18n.t('Portfolio_Details') do
+    f.inputs I18n.t('Campaign_Details') do
       f.input :name, label: I18n.t('Name'), input_html: {autofocus: true}, required: true
       f.input :portfolio_id, as: :select, collection: Portfolio.all, include_blank: false, input_html: {class: 'select2'} #TODO: limit scope by user in the future
       f.input :status, as: :select, collection: Campaign.statuses_for_select, include_blank: false, input_html: {class: 'select2'} #TODO: limit scope by user in the future

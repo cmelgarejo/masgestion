@@ -1,9 +1,9 @@
 ActiveAdmin.register DocumentType do
   permit_params :description #, :active
   actions :all, except: [:show]
-  menu parent: I18n.t('Configuration'), priority: 1, label: I18n.t('Document_Type')
+  menu parent: I18n.t('Configuration'), priority: 1, label: I18n.t('Document_Types')
 
-  index title: I18n.t('Document_Type') do
+  index title: I18n.t('Document_Types') do
     column I18n.t('Description') do |resource|
       link_to resource.name, edit_admin_contact_mean_type_path(resource)
     end

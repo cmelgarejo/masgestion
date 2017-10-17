@@ -11,14 +11,15 @@
       %td
         =I18n.t('Campaign')
       %td
-        = f.collection_select :campaign_id, Campaign.all, :id, :name
+        = f.collection_select :campaign_id, Campaign.where(active: true), :id, :name
     %tr
       %td{col: 2, style: 'width: 200px'}
         %hr
           %br
     %tr
       %td{col: 2, style: 'text-align: center'}
-        =I18n.t('upload_import_fields')
+        %h2
+          =I18n.t('upload_import_fields')
     - (Client.column_names - except).each do |col|
       %tr
         %td
@@ -36,7 +37,8 @@
           %br
     %tr
       %td{col: 2, style: 'text-align: center'}
-        =I18n.t('upload_import_contact_fields')
+        %h2
+          =I18n.t('upload_import_contact_fields')
     - ContactMeanType.all.each do |cmt|
       %tr
         %td
