@@ -1,0 +1,6 @@
+<script>Chartkick.configure({language: 'es'});</script>
+-# start_date = params[:start_date].to_date.beginning_of_day
+-# end_date = params[:end_date].to_date.end_of_day
+- start_date = Date.today.at_beginning_of_week
+- end_date = Date.today.end_of_week
+= pie_chart ClientCollectionHistory.where(created_at: start_date...end_date).group(:history_type).count

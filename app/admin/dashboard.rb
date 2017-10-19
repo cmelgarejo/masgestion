@@ -10,13 +10,25 @@ ActiveAdmin.register_page 'Dashboard' do
     if current_user.try(:admin?)
       columns do
         column do
-          panel I18n.t('chart_cch_history_type') do
+          panel I18n.t('chart_cch_history_type_this_week') do
+            render 'chart_cch_history_type_this_week'
+          end
+        end
+        column do
+          panel I18n.t('chart_cch_history_type_promise_amount_all_time') do
+            render 'chart_cch_history_type_promise_amount'
+          end
+        end
+      end
+      columns do
+        column do
+          panel I18n.t('chart_cch_history_type_all_time') do
             render 'chart_cch_history_type'
           end
         end
         column do
-          panel I18n.t('chart_cch_history_type_promise_amount') do
-            render 'chart_cch_history_type_promise_amount'
+          panel I18n.t('chart_cch_history_type_promise_amount_this_week') do
+            render 'chart_cch_history_type_promise_amount_this_week'
           end
         end
       end
@@ -47,7 +59,7 @@ ActiveAdmin.register_page 'Dashboard' do
         end
       end
       column do
-        panel I18n.t('Clients_Without_History') do
+        panel I18n.t('Clients_Without_History_AllTime') do
           ul do
             if current_user.try(:admin?)
               Client.last(20).map do |client|

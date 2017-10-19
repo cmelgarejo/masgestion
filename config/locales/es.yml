@@ -6,8 +6,10 @@ es:
   assign_campaign: Asignar campaña a
   create_campaign: Crear nueva campaña para
   Graphs: Gráficos
-  chart_cch_history_type: Tipo de Gestión
-  chart_cch_history_type_promise_amount: Montos comprometidos por tipos de gestión
+  chart_cch_history_type_this_week: Tipo de Gestión (esta semana)
+  chart_cch_history_type_all_time: Tipo de Gestión (desde el inicio)
+  chart_cch_history_type_promise_amount_this_week: Montos comprometidos por tipos de gestión (desde el inicio)
+  chart_cch_history_type_promise_amount_all_time: Montos comprometidos por tipos de gestión (esta semana)
   upload_import_fields: Campos para Importación
   upload_import_contact_fields: Contactos
   client_manager_call_to_action: Haga click aquí para ingresar Gestiones
@@ -39,7 +41,7 @@ es:
   Clients: Clientes
   Clients_Total_List: Lista completa de personas
   Recent_Clients: Clientes recientemente creados
-  Clients_Without_History: Clientes sin gestión
+  Clients_Without_History_AllTime: Clientes sin gestión (total)
   Companies: Entidades
   History_Type: Tipo de Gestión
   History_Type_Details: Detalles del tipo de Gestión
